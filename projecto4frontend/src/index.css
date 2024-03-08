@@ -1,0 +1,41 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body {
+  --white: #f9f9f9;
+  --light-grey: #c8e4e7;
+  --grey: grey;
+  --green1: #2cccd3;
+  --green2: #21979c;
+  --green3: #223c4a;
+  --black: #0e1a21;
+  --overlay: #223c4aab;
+
+  --todo: #cffdffd7;
+  --doing: #9cfaffd5;
+  --done: #2cccd4d7;
+
+  margin: 0;
+  padding: 0;
+  background-color: var(--black);
+  position: relative;
+  background-image: url("multimedia/background_main_task.png");
+}
+button {
+  background-color: var(--green3);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: var(--green2);
+}
+
+
