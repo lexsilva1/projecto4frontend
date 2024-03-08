@@ -1,5 +1,5 @@
 import classes from'./Login.module.css';
-import logo from '../multimedia/logo_scrum_01  .png'
+import logo from '../multimedia/logo_scrum_01.png'
 
 
 function Login() {
