@@ -9,7 +9,7 @@
   font-size: 15px;
   text-align: center;
   color: var(--green3);
-  background-color: color-mix(in srgb, var(--light-grey), transparent 10%);
+  background-color: color-mix(in srgb, var(--green1), transparent 40%);
   border-radius: 10px;
   height: 440px;
   width: 330px;
@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: var(--black);
+  background-color: var(--white);
 }
 .input {
   align-self: auto;
@@ -36,3 +36,4 @@
 .input ::placeholder {
   color: var(--green2);
 }
+

@@ -38,4 +38,18 @@ button:hover {
   background-color: var(--green2);
 }
 
+header {
+  background-color: var(--green1);
+  color: var(--white);
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
