@@ -44,10 +44,10 @@ function Login() {
                         <label  htmlFor='password'>Password</label>
                         <input className={classes.input} type='password' id='password' placeholder='password' onChange={(e)=> setPassword(e.target.value)}  />
                     </div>
-                    <button type='submit' onClick={handleLogin}>Login</button>
+                    <button type='submit' onClick={handleLogin}>Sign In</button>
                 </form>
                 <p>or</p>
-                <button onClick={handleAsideIsOpen}>Register</button>
+                <button onClick={handleAsideIsOpen}>Sign Up</button>
             </div>
         </div>
         

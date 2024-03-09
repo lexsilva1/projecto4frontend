@@ -1,16 +1,17 @@
 
 import './App.css'
-import { useEffect } from 'react'
 import Login from './Components/Login'
-import Aside from './Components/Aside'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 
 function App() {
 
-return (
-    <>  
-  <Login />
-  </>
-)
+  return (
+    <Routes> 
+      <Route path="/" element={<Login />} />
+    </Routes>
+  );
+
 }
 
 export default App
