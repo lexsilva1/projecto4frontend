@@ -2,8 +2,10 @@ import classes from'./Login.module.css';
 import logo from '../multimedia/logo_scrum_01.png'
 import Aside from './Aside'; 
 import React, { useState } from 'react';
+import {Navigate, useNavigate} from 'react-router-dom';
 
 function Login() {
+    const navigate = useNavigate();
 
     const [AsideisOpen, setIsOpen] = useState(true);
     
@@ -28,6 +30,7 @@ function Login() {
         });
         const data = await response.text();
         console.log(data);
+        navigate('/home');
     }
 
     return(
