@@ -1,0 +1,218 @@
+.asideOpen {
+    background-color: var(--green1);
+    color: var(--white);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 270px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: width 0.5s ease-in-out;
+    align-content: center;
+  }
+
+.taskName,
+.taskDescription {
+    padding-left: 10px;
+    width: 170px;
+    background-color: var(--white);
+    font-size: 12px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: center;
+}
+.taskName {
+    margin-bottom: 10px;
+    height: 30px;
+}
+.taskDescription {
+    resize: none;
+    padding-top: 10px;
+    height: 200px;
+    line-height: 1.4;
+    align-self: center;
+}
+/* Quando a task description não está selecionada mantém a border */
+.taskDescription:not(:focus) {
+    border: var(--green3) 2px solid;
+}
+.taskDescription::placeholder {
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 140px;
+}
+.labelTaskCategory {
+    margin-top: 20px;
+}
+
+.editCategoriesButton {
+    background-color: var(--done);
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.editCategoryModal {
+    padding: 10px;
+    width: 30%;
+    height: 40%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ 
+}
+
+.saveButtonEditCategoryModal{
+    margin-left: 10px;
+    margin-top: 100px;
+}
+.cancelButtonEditCategoryModal{
+    margin-left: 310px;
+    margin-top: -52px;
+    
+}
+
+/* Botões de priority no home.html */
+.taskButtonsHome {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    /* Add the missing CSS properties here */
+    width: 100%;
+    height: 50px;
+    background-color: red !important;
+    display: flex;
+    flex-direction: column;
+}
+.priorityButtonsHome {
+    justify-content: center;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+.priorityButtonHome {
+    --button-shadow-color: #c3c3c3;
+    margin-top: 15px;
+    width: 5rem;
+    height: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px var(--button-shadow-color);
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: var(--grey);
+    transition: box-shadow 0.3s ease;
+    border: 1px solid var(--grey);
+}
+.priorityButtonHome {
+    border-color: var(--black);
+    color: var(--green3);
+}
+.low {
+    --grey: #a8db27;
+}
+.medium {
+    --grey: #ffd549;
+}
+.high {
+    --grey: #ff3232;
+    color: color-mix(in srgb, var(--white), var(--white) 95%);
+}
+.priorityButtonHome:hover {
+    background-color: color-mix(in srgb, var(--grey), white 25%);
+    transition: background-color 0.3s ease;
+}
+.priorityButtonHome.selected {
+    background-color: color-mix(in srgb, var(--grey), white 10%) !important;
+    border-width: 2px !important;
+    border-color: #97a7b0 !important;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.8s ease;
+    transform: translateY(4px);
+}
+/* Botão add task */
+.addTask {
+    align-self: center;
+    text-align: center;
+    margin-top: 30px;
+    width: 120px;
+    height: 32px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: var(--white);
+    color: var(--green3);
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+.addTask:hover {
+    background-color: var(--green3);
+    color: var(--green1);
+}
+/* Mensagem de erro por não preenchimento de 1 dos 2 campos, ou do botão de priority */
+.warningMessage2 {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    text-align: center;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .taskDate {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px; /* Reduzido para mover os inputs mais para a esquerda */
+    margin-top: 50px;
+    flex-direction: row; /* Mantido como row para que os divs filhos sejam exibidos em uma linha */
+    gap: 40px;
+    white-space: nowrap;
+  }
+  
+  .taskDate div {
+    display: flex;
+    flex-direction: column; /* Mantido como column para que a label esteja acima do input */
+    margin-right: 20px; /* Mantido para dar espaço entre os pares de label e input */
+    }
+#taskDate input {
+    height: fit-content;
+    width: fit-content;
+    align-self: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: -110px;
+    margin-right: 4px;
+}
+      
+.dateinput {
+    margin: 5px;
+    width: 150px;
+    height: 25px;
+    padding-left: 5px;
+    background-color: var(--white);
+    font-size: 12px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    font-family: Arial, Helvetica, sans-serif;
+    }

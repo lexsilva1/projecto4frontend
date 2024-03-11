@@ -29,15 +29,15 @@ function Login() {
             
         });
         const data = await response.text();
-        console.log(data);
+        sessionStorage.setItem('token', data);
         navigate('/home');
     }
 
     return(
         <div className={classes.centercontainer}>
-                <img src={logo} alt='logo' height={150}/>
                  <Aside isOpen={AsideisOpen}  />
                 <div className={classes.loginpanel}>
+                <img src={logo} alt='logo' height={150}/>
                 <form>
                     <div>
                         <label htmlFor='username'>Username</label>

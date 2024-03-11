@@ -28,3 +28,11 @@
   .logout:hover img {
     content: url("../multimedia/logout_hover.png");
   }
+  .profileImageHome {
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 50%;
+    position: relative;
+    left: 130px;
+    object-fit: cover;
+  }
