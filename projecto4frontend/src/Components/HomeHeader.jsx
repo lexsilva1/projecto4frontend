@@ -7,18 +7,17 @@ import  logout from '../multimedia/logout.png';
 
 
 
-const HomeHeader = ({ handleEditProfileIsOpen }) => {
+const HomeHeader = ({ handleEditProfileIsOpen,updatedPhoto,updatedName }) => {
 
 const navigate = useNavigate();
 const [photo, setPhoto] = useState('');
 useEffect(() => {
     userPicture();
-}, []);
+}, [updatedPhoto]);
 const [name, setName] = useState('');
 useEffect(() => {
     userDto();
-}, []);
-
+}, [updatedName]);
 
 
 async function userDto() {
