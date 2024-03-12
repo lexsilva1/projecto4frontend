@@ -7,7 +7,7 @@ import  logout from '../multimedia/logout.png';
 
 
 
-const HomeHeader = () => {
+const HomeHeader = ({ handleEditProfileIsOpen }) => {
 
 const navigate = useNavigate();
 const [photo, setPhoto] = useState('');
@@ -18,6 +18,8 @@ const [name, setName] = useState('');
 useEffect(() => {
     userDto();
 }, []);
+
+
 
 async function userDto() {
     await fetch("http://localhost:8080/projecto4backend/rest/user/myUserDto", {
@@ -73,11 +75,10 @@ async function userPicture() {
             <header>
                 <h1>Welcome to Scrum</h1>
                 <DateTime />
-                <label className={classes.logout}>My Tasks</label>
-                <img id='profileImageHome' className={classes.profileImageHome} src={photo} alt="Avatar" />
-                <label className={classes.logout}>{name}</label>
-            
-                <button className={classes.logout} onClick ={logout}>
+                    <label className={classes.logout}>My Tasks</label>
+                    <img id='profileImageHome' className={classes.profileImageHome} src={photo} alt="Avatar" />
+                    <label className={classes.logout} onClick={handleEditProfileIsOpen}>{name}</label>
+                    <button className={classes.logout} onClick={logout}>
                     <img src={logout} alt="Logout Icon" />
                     Logout
                 </button>
