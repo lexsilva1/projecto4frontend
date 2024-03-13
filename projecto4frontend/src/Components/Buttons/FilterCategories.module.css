@@ -1,0 +1,27 @@
+.filtercontainer {
+    display: grid;
+    justify-content: space-between;
+    padding: 10px;
+    position: absolute;
+    top: 90px;
+    width: 20%;
+    left: 20%;
+  }
+  
+  .filter {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    margin: 0 50px;
+    white-space: nowrap;
+  }
+  .filter select {
+    height: 25px;
+  }
+  .filter label {
+    font-size: 14px;
+    color: var(--green3);
+    font-weight: bold;
+    margin-right: 5px;
+    margin-top: 5px;
+  }

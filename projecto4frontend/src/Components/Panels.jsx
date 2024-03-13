@@ -1,20 +1,29 @@
 import classes from './Panels.module.css';
 import React from 'react';
+import { useState } from 'react';
+import UserElement from './Users/UserElement';
 
-const Panels = () => {
+
+const Panels = ({selected,users}) => {
+
+    const panel1 = selected ? 'Developer' : 'To Do';
+    const panel2 = selected ? 'Scrum Master' : 'Doing';
+    const panel3 = selected ? 'Product Owner' : 'Done';
+       
+
     return (
         <div className={classes.container}>
-            <div className={classes.panel}>
-                <h2 className={classes.mainhome}>To Do</h2>
-                <p>Content for panel 1</p>
+            <div id='panel1' className={classes.panel}>
+                <h2 className={classes.mainhome}>{panel1}</h2>
+                {selected && users.map(user => (user.role === 'developer' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
             </div>
-            <div className={classes.panel}>
-                <h2 className={classes.mainhome}>Doing</h2>
-                <p>Content for panel 2</p>
+            <div id='panel2' className={classes.panel}>
+                <h2 className={classes.mainhome}>{panel2}</h2>
+                {selected && users.map(user => (user.role === 'ScrumMaster' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
             </div>
-            <div className={classes.panel}>
-                <h2 className={classes.mainhome}>Done</h2>
-                <p>Content for panel 3</p>
+            <div id='panel3' className={classes.panel}>
+                <h2 className={classes.mainhome}>{panel3}</h2>
+                {selected && users.map(user => (user.role === 'Owner' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
             </div>
         </div>
     );

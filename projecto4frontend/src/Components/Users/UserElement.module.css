@@ -1,0 +1,28 @@
+.userPhoto {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.main-home {
+    text-align: center;
+    color: var(--green3);
+    text-transform: uppercase;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    padding-right: 30px;
+  }
+.user:hover {
+    color: var(--green2);
+    opacity: 0.7;
+    
+  }

@@ -1,0 +1,15 @@
+  .footercontent {
+    padding-block: 10px;
+    font-size: 17px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 80px;
+    row-gap: 12px;
+  }
+  .labelleft {
+    padding-left: 500px;
+    text-align: left;
+  }
+  .labelright {
+    text-align: left;
+  }
