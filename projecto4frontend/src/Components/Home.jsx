@@ -8,7 +8,7 @@ import DeletedButton from "./Buttons/DeletedButton";
 import Footer from "./Footer";
 import FilterCategories from "./Buttons/FilterCategories";
 import FilterUsers from "./Buttons/FilterUsers";
-import userElement from './Users/UserElement';
+import CategoriesButton from "./Buttons/CategoriesButton";
 
 const Home = () => {
     const [users, setUsers] = useState([]);
@@ -76,6 +76,7 @@ const Home = () => {
                 <FilterUsers />
                 <DeletedButton />
                 <UsersButton handleSelected={handleSelected} selected={selected} handleButtonClick={handleButtonClick()}/>
+                <CategoriesButton />
                 <Panels selected={selected} users={users}/>
             </main>
             <Footer />

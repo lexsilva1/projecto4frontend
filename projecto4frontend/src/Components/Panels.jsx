@@ -19,7 +19,9 @@ const Panels = ({selected,users}) => {
             </div>
             <div id='panel2' className={classes.panel}>
                 <h2 className={classes.mainhome}>{panel2}</h2>
+                <div>
                 {selected && users.map(user => (user.role === 'ScrumMaster' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
+                </div>
             </div>
             <div id='panel3' className={classes.panel}>
                 <h2 className={classes.mainhome}>{panel3}</h2>
