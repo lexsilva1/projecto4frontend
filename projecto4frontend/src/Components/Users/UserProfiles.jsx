@@ -1,12 +1,48 @@
 import classes from './UserProfiles.module.css';
 import useStore from "../../stores/Userstore";
+import { useState } from 'react';
 const UserProfiles = () => {
 
     const isProfilesOpen = useStore(state => state.isProfilesOpen);
     const setIsProfilesOpen = useStore(state => state.setIsProfilesOpen);
 
     const selectedUser = useStore(state => state.selectedUser);
+    const setSelectedUser = useStore(state => state.setSelectedUser);
     const names= selectedUser.name.split(" ");
+
+    const [firstName, setFirstName] = useState(names[0]);
+    const [lastName, setLastName] = useState(names[1]);
+    const [email, setEmail] = useState(selectedUser.email);
+    const [contact, setContact] = useState(selectedUser.contactNumber);
+    const [userPicture, setUserPicture] = useState(selectedUser.userPhoto);
+    const [role, setRole] = useState(selectedUser.role);
+
+
+
+   async function handleUpdateUser() {
+        const user = {
+            id: selectedUser.id,
+            name: firstName + " " + lastName,
+            email: email,
+            contactNumber: contact,
+            userPhoto: userPicture,
+            role: role,
+            username: selectedUser.username,
+        };
+        await fetch("http://localhost:8080/projecto4backend/rest/user/update", {
+            method: "PUT",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+            body: JSON.stringify(user),
+        });
+        setSelectedUser('');
+        setIsProfilesOpen();
+        useStore.getState().actions.fetchUsers();
+
+    }
     return (
         <div>
             {isProfilesOpen && (
@@ -27,7 +63,7 @@ const UserProfiles = () => {
                                         type="text"
                                         id="firstNameModal"
                                         name="firstName"
-                                        value={names[0]}
+                                        value={firstName}
                                         onChange={(e) => setFirstName(e.target.value)}
                                     />
                                 </div>
@@ -38,7 +74,7 @@ const UserProfiles = () => {
                                         type="text"
                                         id="lastNameModal"
                                         name="lastName"
-                                        value={names[1]}
+                                        value={lastName}
                                         onChange={(e) => setLastName(e.target.value)}
                                     />
                                 </div>
@@ -49,7 +85,7 @@ const UserProfiles = () => {
                                         type="text"
                                         id="emailModal"
                                         name="email"
-                                        value={selectedUser.email}
+                                        value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </div>
@@ -71,7 +107,7 @@ const UserProfiles = () => {
                                         type="text"
                                         id="contactModal"
                                         name="contact"
-                                        value={selectedUser.contactNumber}
+                                        value={contact}
                                         onChange={(e) => setContact(e.target.value)}
                                     />
                                 </div>
@@ -82,7 +118,7 @@ const UserProfiles = () => {
                                         type="text"
                                         id="userPictureModal"
                                         name="userPicture"
-                                        value={selectedUser.userPhoto}
+                                        value={userPicture}
                                         onChange={(e) => setUserPicture(e.target.value)}
                                     />
                                 </div>
@@ -91,7 +127,7 @@ const UserProfiles = () => {
                                     <select
                                         id="roleModal"
                                         name="role"
-                                        value={selectedUser.role}
+                                        value={role}
                                         onChange={(e) => setRole(e.target.value)}
                                     >
                                         <option value="developer">Developer</option>
@@ -106,7 +142,7 @@ const UserProfiles = () => {
                                 </div>
                             </div>
                         </form>
-                        <img className={classes.userPic} id="userPicturePreview" src={selectedUser.userPhoto} alt="" />
+                        <img className={classes.userPic} id="userPicturePreview" src={userPicture} alt="" />
                     </div>
                 </div>
             )}
