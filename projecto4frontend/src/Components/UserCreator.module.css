@@ -1,0 +1,58 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 0;
+    background-color: var(--green1);
+    color: var(--white);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    transition: ease 0.5s;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: --green3;
+  }
+  .userPic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 10px;
+    align-self: center;
+  }
+  .input {
+      align-self: auto;
+      margin-right: 10px;
+      border-radius: 5px;
+      height: 20px;
+      border: 1px solid var(--green3);
+      background-color: var(--white);
+      color: var(--green3);
+      font-size: 15px;
+      width: 100%;
+    }
+    .asideOpen {
+        background-color: var(--green1);
+        color: var(--white);
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: width 0.5s ease-in-out;
+        align-content: center;
+      }
+    .button {
+      transition: width 0s ease-in-out;
+    }
+  

@@ -2,9 +2,12 @@ import classes from './Panels.module.css';
 import React from 'react';
 import { useState } from 'react';
 import UserElement from './Users/UserElement';
+import useStore from "../stores/Userstore";
 
 
-const Panels = ({selected,users}) => {
+const Panels = ({users}) => {
+    
+const selected = useStore(state => state.selected);
 
     const panel1 = selected ? 'Developer' : 'To Do';
     const panel2 = selected ? 'Scrum Master' : 'Doing';
@@ -13,19 +16,30 @@ const Panels = ({selected,users}) => {
 
     return (
         <div className={classes.container}>
-            <div id='panel1' className={classes.panel}>
+            <div className={classes.column}>
+            <div className={classes.title}>
                 <h2 className={classes.mainhome}>{panel1}</h2>
+            </div>
+            <div id='panel1' className={classes.panel}>
+                
                 {selected && users.map(user => (user.role === 'developer' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
+                </div>
+            </div>
+            <div className={classes.column}>
+            <div className={classes.title}>
+            <h2 className={classes.mainhome}>{panel2}</h2>
             </div>
             <div id='panel2' className={classes.panel}>
-                <h2 className={classes.mainhome}>{panel2}</h2>
-                <div>
                 {selected && users.map(user => (user.role === 'ScrumMaster' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
                 </div>
             </div>
+            <div className={classes.column}>
+            <div className={classes.title}>
+            <h2 className={classes.mainhome}>{panel3}</h2>
+            </div>
             <div id='panel3' className={classes.panel}>
-                <h2 className={classes.mainhome}>{panel3}</h2>
                 {selected && users.map(user => (user.role === 'Owner' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
+                </div>
             </div>
         </div>
     );

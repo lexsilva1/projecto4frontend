@@ -216,3 +216,9 @@
     border-top-right-radius: 7px;
     font-family: Arial, Helvetica, sans-serif;
     }
+.prioritydiv {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px; 
+    gap: 5px;
+}

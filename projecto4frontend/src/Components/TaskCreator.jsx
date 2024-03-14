@@ -50,6 +50,8 @@ async function getCategories() {
                 <label htmlFor="taskCategory">Category</label>
                 <select id="taskCategory"></select>
                 <br />
+                <label>Priority</label>
+                <div className={classes.prioritydiv}>
                 <button className={`${classes.priorityButtonHome} ${classes.low}`} id="low-button-home">
                     Low
                 </button>
@@ -59,6 +61,7 @@ async function getCategories() {
                 <button className={`${classes.priorityButtonHome} ${classes.high}`} id="high-button-home">
                     High
                 </button>
+                </div>
             </div>
             <div>
                 <label htmlFor="startdate">Initial Date</label>

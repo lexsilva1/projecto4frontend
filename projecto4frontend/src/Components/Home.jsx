@@ -9,9 +9,13 @@ import Footer from "./Footer";
 import FilterCategories from "./Buttons/FilterCategories";
 import FilterUsers from "./Buttons/FilterUsers";
 import CategoriesButton from "./Buttons/CategoriesButton";
+import useStore from "../stores/Userstore";
+import UserProfiles from "./Users/UserProfiles";
+import UserCreator from "./UserCreator";
 
 const Home = () => {
-    const [users, setUsers] = useState([]);
+    const role = sessionStorage.getItem("role");
+   
     const [editProfileIsOpen, setEditProfileIsOpen] = useState(false);
     function handleEditProfileIsOpen() {
         setEditProfileIsOpen(!editProfileIsOpen);
@@ -19,50 +23,21 @@ const Home = () => {
     }
     const [updatedPhoto, setUpdatedPhoto] = useState('');
     const [updatedName, setUpdatedName] = useState('');
+    const selected = useStore(state => state.selected);
+    const users = useStore(state => state.users);
+    
 
     const handleUpdateUser = (photo, name) => {
         setUpdatedPhoto(photo);
         setUpdatedName(name);
     }
-    const [selected, setSelected] = useState(false);
+    
 
-    function handleSelected() {
-        setSelected(!selected);
-    }
-    async function handleButtonClick() {
-        if (selected) {
-           await allUsers();
-        } else {
-            clearPanels();
-        }
-    }
-    
-    
-    function clearPanels() {
-        const userElements = document.querySelectorAll('.user');
-        userElements.forEach((element) => {
-            element.remove();
-        });
-    }
+
     useEffect(() => {
-        async function allUsers() {
-        const response = await fetch("http://localhost:8080/projecto4backend/rest/user/all", {
-            method: "GET",
-            headers: {
-                Accept: "*/*",
-                "Content-Type": "application/json",
-                token: sessionStorage.getItem("token"),
-            }
-        });
-        if(response.status === 200){
-        const data= await response.json();
-        setUsers(data);
-        console.log(data);
-    }else{
-        console.log('error');
-    }
-    }
-    allUsers();
+        if (role === "Owner" || role === "ScrumMaster") {
+            useStore.getState().actions.fetchUsers();
+        }
     }, []);
     
 
@@ -70,17 +45,18 @@ const Home = () => {
     return (
         <div>
             <Header handleEditProfileIsOpen={handleEditProfileIsOpen} updatedPhoto={updatedPhoto} updatedName={updatedName} />
-            <TaskCreator />
+            {selected ? <UserCreator /> :<TaskCreator />}
             <main>
                 <FilterCategories />
                 <FilterUsers />
                 <DeletedButton />
-                <UsersButton handleSelected={handleSelected} selected={selected} handleButtonClick={handleButtonClick()}/>
+                <UsersButton />
                 <CategoriesButton />
-                <Panels selected={selected} users={users}/>
+                <Panels  users={users}/>
             </main>
             <Footer />
             <EditMyProfileModal EditProfileIsOpen={editProfileIsOpen} handleEditProfileIsOpen={handleEditProfileIsOpen} onUpdatedInfo={handleUpdateUser} />
+           
         </div>
     );
 }
