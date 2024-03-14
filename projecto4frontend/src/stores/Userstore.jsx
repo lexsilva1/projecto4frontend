@@ -3,9 +3,13 @@ import {persist, createJSONStorage} from 'zustand/middleware'
 
 const useStore = create((set) => ({
     selected: false,
+    selectedUser: '',
+    isProfilesOpen: false,
     
 
     setSelected:  () => set((state) => ({ selected: !state.selected })),
+    setSelectedUser: (user) => set({selectedUser: user}),
+    setIsProfilesOpen: () => set((state) => ({isProfilesOpen: !state.isProfilesOpen})),
     
     
     persist: {

@@ -1,52 +1,116 @@
 import classes from './UserProfiles.module.css';
-
+import useStore from "../../stores/Userstore";
 const UserProfiles = () => {
 
-    
+    const isProfilesOpen = useStore(state => state.isProfilesOpen);
+    const setIsProfilesOpen = useStore(state => state.setIsProfilesOpen);
+
+    const selectedUser = useStore(state => state.selectedUser);
+    const names= selectedUser.name.split(" ");
     return (
-                <div id="myModalView" className={classes.modal}>
-                <div className={classes.modalcontent}>
-                    <span className={classes.close}>&times;</span>
-                    <h2 id ='nome' className={classes.title}></h2>
-                    <div className={classes.formfields} id="modal-info">
-                        <div className={classes.formfield}>
-                        <label for="firstNameViewUser">First Name:</label>
-                        <input type="text" id="firstNameViewUser" name="firstName" placeholder="" />
-                        </div>
-                        <div className={classes.formfield}>
-                        <label for="lastNameViewUser">Last Name:</label>
-                        <input type="text" id="lastNameViewUser" name="lastName" placeholder="" />
-                        </div>
-                        <div className={classes.formfield}>
-                        <label for="usernameViewUser">Username:</label>
-                        <input type="text" id="usernameViewUser" name="username" placeholder="" />
-                        </div>
-                        <div className={classes.formfield}>
-                        <label for="emailViewUser">Email:</label>
-                        <input type="text" id="emailViewUser" name="email" placeholder="" />
-                        </div>
-                        <div className={classes.formfield}>
-                        <label for="contactViewUser">Contact:</label>
-                        <input type="text" id="contactViewUser" name="contact" placeholder="" />
-                        </div>
-                        <div className={classes.formfield}>
-                        <label for="imageURLViewUser">User Picture:</label>
-                        <input type="text" id="imageURLViewUser" name="imageURL" placeholder="" />
-                        </div>
-                        <div className={classes.formfield}>
-                        <label for="roleViewUser">Role:</label>
-                        <select id="roleViewUser" name="role">
-                            <option value="developer">Developer</option>
-                            <option value="ScrumMaster">Scrum Master</option>
-                            <option value="Owner">Product Owner</option>
-                        </select>
-                       </div>
-                    </div>
-                    <div className= {classes.userPic}>
-                        <img id="userPhotoViewUser" src="" alt="User Photo" />
+        <div>
+            {isProfilesOpen && (
+                <div id="myModal" className={classes.modal}>
+                    <div className={classes.modalcontent}>
+                        <span className={classes.close} id="adduserclose" onClick={setIsProfilesOpen}>
+                            &times;
+                        </span>
+                        <form id="addUserForm">
+                            <h1 className={classes.title} id="modalTitle">
+                                {selectedUser.name}
+                            </h1>
+                            <div className="form-fields">
+                                <div className={classes.formfields}>
+                                    <label htmlFor="firstName">First Name:</label>
+                                    <input
+                                        className={classes.formfield}
+                                        type="text"
+                                        id="firstNameModal"
+                                        name="firstName"
+                                        value={names[0]}
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                    />
+                                </div>
+                                <div className={classes.formfields}>
+                                    <label htmlFor="lastName">Last Name:</label>
+                                    <input
+                                        className={classes.formfield}
+                                        type="text"
+                                        id="lastNameModal"
+                                        name="lastName"
+                                        value={names[1]}
+                                        onChange={(e) => setLastName(e.target.value)}
+                                    />
+                                </div>
+                                <div className={classes.formfields}>
+                                    <label htmlFor="email">Email:</label>
+                                    <input
+                                        className={classes.formfield}
+                                        type="text"
+                                        id="emailModal"
+                                        name="email"
+                                        value={selectedUser.email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </div>
+                                <div className={classes.formfields}>
+                                    <label htmlFor="username">Username:</label>
+                                    <input
+                                        className={classes.formfield}
+                                        type="text"
+                                        id="usernameModal"
+                                        name="username"
+                                        value={selectedUser.username}
+                                        readOnly
+                                    />
+                                </div>
+                                <div className={classes.formfields}>
+                                    <label htmlFor="contact">Contact:</label>
+                                    <input
+                                        className={classes.formfield}
+                                        type="text"
+                                        id="contactModal"
+                                        name="contact"
+                                        value={selectedUser.contactNumber}
+                                        onChange={(e) => setContact(e.target.value)}
+                                    />
+                                </div>
+                                <div className={classes.formfields}>
+                                    <label htmlFor="userPicture">User Picture:</label>
+                                    <input
+                                        className={classes.formfield}
+                                        type="text"
+                                        id="userPictureModal"
+                                        name="userPicture"
+                                        value={selectedUser.userPhoto}
+                                        onChange={(e) => setUserPicture(e.target.value)}
+                                    />
+                                </div>
+                                <div className={classes.formfields}>
+                                    <label htmlFor="role">Role</label>
+                                    <select
+                                        id="roleModal"
+                                        name="role"
+                                        value={selectedUser.role}
+                                        onChange={(e) => setRole(e.target.value)}
+                                    >
+                                        <option value="developer">Developer</option>
+                                        <option value="ScrumMaster">Scrum Master</option>
+                                        <option value="Owner">Product Owner</option>
+                                    </select>
+                                </div>
+                                <div className={classes.formfields}>
+                                    <button onClick={(e) => {e.preventDefault(); handleUpdateUser(); }} type="submit" id="updateUser" value="Submit">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <img className={classes.userPic} id="userPicturePreview" src={selectedUser.userPhoto} alt="" />
                     </div>
                 </div>
-            </div>
+            )}
+        </div>
             );
         }
 

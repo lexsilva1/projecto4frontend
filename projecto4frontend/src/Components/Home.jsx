@@ -25,6 +25,7 @@ const Home = () => {
     const [updatedName, setUpdatedName] = useState('');
     const selected = useStore(state => state.selected);
     const users = useStore(state => state.users);
+    const isProfilesOpen = useStore(state => state.isProfilesOpen);
     
 
     const handleUpdateUser = (photo, name) => {
@@ -56,7 +57,7 @@ const Home = () => {
             </main>
             <Footer />
             <EditMyProfileModal EditProfileIsOpen={editProfileIsOpen} handleEditProfileIsOpen={handleEditProfileIsOpen} onUpdatedInfo={handleUpdateUser} />
-           
+           {isProfilesOpen ? <UserProfiles />: null}
         </div>
     );
 }

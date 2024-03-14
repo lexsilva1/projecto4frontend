@@ -22,7 +22,7 @@ const selected = useStore(state => state.selected);
             </div>
             <div id='panel1' className={classes.panel}>
                 
-                {selected && users.map(user => (user.role === 'developer' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
+                {selected && users.map(user => (user.role === 'developer' && <UserElement user= {user} />))}
                 </div>
             </div>
             <div className={classes.column}>
@@ -30,7 +30,7 @@ const selected = useStore(state => state.selected);
             <h2 className={classes.mainhome}>{panel2}</h2>
             </div>
             <div id='panel2' className={classes.panel}>
-                {selected && users.map(user => (user.role === 'ScrumMaster' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
+                {selected && users.map(user => (user.role === 'ScrumMaster' && <UserElement user= {user} />))}
                 </div>
             </div>
             <div className={classes.column}>
@@ -38,7 +38,7 @@ const selected = useStore(state => state.selected);
             <h2 className={classes.mainhome}>{panel3}</h2>
             </div>
             <div id='panel3' className={classes.panel}>
-                {selected && users.map(user => (user.role === 'Owner' && <UserElement key={user.username} name={user.name} userPhoto={user.userPhoto} />))}
+                {selected && users.map(user => (user.role === 'Owner' && <UserElement user= {user} />))}
                 </div>
             </div>
         </div>
