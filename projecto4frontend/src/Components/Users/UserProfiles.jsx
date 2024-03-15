@@ -124,7 +124,7 @@ const UserProfiles = () => {
                                 </div>
                                 <div className={classes.formfields}>
                                     <label htmlFor="role">Role</label>
-                                    <select
+                                    <select className={classes.roles}
                                         id="roleModal"
                                         name="role"
                                         value={role}

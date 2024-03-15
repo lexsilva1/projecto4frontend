@@ -102,3 +102,7 @@
       font-weight: bold;
       color: var(--green3);
     }
+.roles{
+  align-self: center;
+  background-color: var(--white);
+}    

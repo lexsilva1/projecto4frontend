@@ -12,6 +12,8 @@ import CategoriesButton from "./Buttons/CategoriesButton";
 import useStore from "../stores/Userstore";
 import UserProfiles from "./Users/UserProfiles";
 import UserCreator from "./UserCreator";
+import useCategoriesStore from "../stores/CategoriesStore";
+import CategoriesTable from "./Categories/CategoriesTable";
 
 const Home = () => {
     const role = sessionStorage.getItem("role");
@@ -26,6 +28,7 @@ const Home = () => {
     const selected = useStore(state => state.selected);
     const users = useStore(state => state.users);
     const isProfilesOpen = useStore(state => state.isProfilesOpen);
+    const categoriesisOpen = useCategoriesStore(state => state.categoriesisOpen);
     
 
     const handleUpdateUser = (photo, name) => {
@@ -39,6 +42,9 @@ const Home = () => {
         if (role === "Owner" || role === "ScrumMaster") {
             useStore.getState().actions.fetchUsers();
         }
+    }, []);
+    useEffect(() => {
+            useCategoriesStore.getState().actions.fetchCategories();
     }, []);
     
 
@@ -58,6 +64,8 @@ const Home = () => {
             <Footer />
             <EditMyProfileModal EditProfileIsOpen={editProfileIsOpen} handleEditProfileIsOpen={handleEditProfileIsOpen} onUpdatedInfo={handleUpdateUser} />
            {isProfilesOpen ? <UserProfiles />: null}
+           {categoriesisOpen ? <CategoriesTable />: null}
+
         </div>
     );
 }

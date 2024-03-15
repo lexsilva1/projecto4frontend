@@ -37,8 +37,11 @@ const useStore = create((set) => ({
         setUsers: (users) => set({users: users}),
         name:'mystore', // the name to use for the persisted data
         storage: createJSONStorage(() => sessionStorage)
-        }
+        },
+
 
 }));
+
+
   
 export default useStore;
