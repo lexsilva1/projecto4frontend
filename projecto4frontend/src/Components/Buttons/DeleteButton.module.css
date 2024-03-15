@@ -1,0 +1,14 @@
+.apagarButton {
+    margin-inline-start: auto;
+    right: 10px;
+    bottom: 10px;
+    max-width: 17px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: ease-on 0.01s;
+  }
+  /* Animação do botão apagar */
+  .apagarButton:hover {
+    transform: scale(1.1);
+    transition: ease 0.01s;
+  }

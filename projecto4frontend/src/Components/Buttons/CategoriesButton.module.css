@@ -1,0 +1,10 @@
+.selected{
+    background-color: color-mix(in srgb, var(--green2), white 10%) !important;
+    color: var(--black) !important;
+    border-width: 2px !important;
+    color: #8ad6ff !important;
+}
+.selected:hover{
+    background-color: color-mix(in srgb, var(--green3), white 25%);
+    transition: background-color 0.3s ease;
+}

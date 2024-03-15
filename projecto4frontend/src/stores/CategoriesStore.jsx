@@ -26,6 +26,9 @@ const useCategoriesStore = create((set) => ({
                 //console.log(data);
             }
         },
+        
+
+        
         setCategories: (categories) => set({categories: categories}),
         name:'catstore', // the name to use for the persisted data
         storage: createJSONStorage(() => sessionStorage)

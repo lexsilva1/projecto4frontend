@@ -1,6 +1,7 @@
 import classes from './UserProfiles.module.css';
 import useStore from "../../stores/Userstore";
 import { useState } from 'react';
+import DeleteButton from '../Buttons/DeleteButton'; 
 const UserProfiles = () => {
 
     const isProfilesOpen = useStore(state => state.isProfilesOpen);
@@ -17,7 +18,24 @@ const UserProfiles = () => {
     const [userPicture, setUserPicture] = useState(selectedUser.userPhoto);
     const [role, setRole] = useState(selectedUser.role);
 
+    async function deleteUser(username) {
 
+        await fetch(`http://localhost:8080/projecto4backend/rest/user/delete/${username}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+        });
+        useStore.getState().actions.fetchDeletedUsers();
+    }
+
+const handleDelete = (e) => {
+        e.preventDefault();
+    deleteUser(selectedUser.username);
+        
+    }
 
    async function handleUpdateUser() {
         const user = {
@@ -135,10 +153,11 @@ const UserProfiles = () => {
                                         <option value="Owner">Product Owner</option>
                                     </select>
                                 </div>
-                                <div className={classes.formfields}>
+                                <div className={classes.buttonsdiv}>
                                     <button onClick={(e) => {e.preventDefault(); handleUpdateUser(); }} type="submit" id="updateUser" value="Submit">
                                         Save
                                     </button>
+                                    <DeleteButton handleDelete={handleDelete} />
                                 </div>
                             </div>
                         </form>

@@ -10,6 +10,8 @@
     align-items: center;
     margin-bottom: 15px;
     cursor: pointer;
+    justify-content: left;
+    border-radius: 5px;
 }
 .main-home {
     text-align: center;
@@ -23,6 +25,10 @@
   }
 .user:hover {
     color: var(--green2);
-    opacity: 0.7;
+    background-color: color-mix(in srgb, var(--black), transparent 75%)
     
   }
+  
+.deleted{
+  opacity: 0.5;
+}

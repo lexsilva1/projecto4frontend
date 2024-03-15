@@ -5,18 +5,34 @@ const useStore = create((set) => ({
     selected: false,
     selectedUser: '',
     isProfilesOpen: false,
-    
+    isDeleteSelected: false,
 
     setSelected:  () => set((state) => ({ selected: !state.selected })),
     setSelectedUser: (user) => set({selectedUser: user}),
     setIsProfilesOpen: () => set((state) => ({isProfilesOpen: !state.isProfilesOpen})),
-    
+    setIsDeleteSelected: () => set((state) => ({isDeleteSelected: !state.isDeleteSelected})),
     
     persist: {
         users: [], // the initial state
     },
     actions:
     {
+        fetchDeletedUsers: async () => {
+            const response = await fetch("http://localhost:8080/projecto4backend/rest/user/allDeleted", {
+                method: "GET",
+                headers: {
+                    Accept: "*/*",
+                    "Content-Type": "application/json",
+                    token: sessionStorage.getItem("token"),
+                }
+            });
+            if(response.status === 200){
+                const data= await response.json();
+                set({users: data});
+                //console.log(data);
+            }
+        },
+    
     fetchUsers: async () => {
         const response = await fetch("http://localhost:8080/projecto4backend/rest/user/all", {
             method: "GET",
@@ -38,9 +54,8 @@ const useStore = create((set) => ({
         name:'mystore', // the name to use for the persisted data
         storage: createJSONStorage(() => sessionStorage)
         },
+    }));
 
-
-}));
 
 
   

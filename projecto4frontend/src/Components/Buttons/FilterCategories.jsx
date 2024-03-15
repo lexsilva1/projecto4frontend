@@ -1,7 +1,7 @@
 import classes from './FilterCategories.module.css';
 import React, { useEffect } from 'react';
 
-const FilterCategories = ({ handleFilter }) => {
+const FilterCategories = () => {
 
 useEffect(() => {
     getCategories();

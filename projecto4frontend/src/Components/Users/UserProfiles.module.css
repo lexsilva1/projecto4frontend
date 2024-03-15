@@ -106,3 +106,9 @@
   align-self: center;
   background-color: var(--white);
 }    
+.buttonsdiv {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+
+}

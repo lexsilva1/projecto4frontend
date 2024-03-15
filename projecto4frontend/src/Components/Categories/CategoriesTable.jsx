@@ -15,7 +15,7 @@ const categories = useCategoriesStore(state => state.categories);
 const setIsCategoriesOpen = useCategoriesStore(state => state.setCategoriesOpen);
 
     return (
-        <div className={classes.modal}>
+        <div className={classes.panel}>
             <div className={classes.modalcontent}>
             <span className={classes.close} id='categoriesclose' onClick={setIsCategoriesOpen}> &times;
                         </span>

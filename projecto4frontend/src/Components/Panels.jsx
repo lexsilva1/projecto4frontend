@@ -3,16 +3,27 @@ import React from 'react';
 import { useState } from 'react';
 import UserElement from './Users/UserElement';
 import useStore from "../stores/Userstore";
+import { useEffect } from 'react';
 
 
 const Panels = ({users}) => {
     
 const selected = useStore(state => state.selected);
 
+
     const panel1 = selected ? 'Developer' : 'To Do';
     const panel2 = selected ? 'Scrum Master' : 'Doing';
     const panel3 = selected ? 'Product Owner' : 'Done';
-       
+    const isDeleteSelected = useStore(state => state.isDeleteSelected);
+    
+useEffect(() => {
+if(isDeleteSelected){
+    useStore.getState().actions.fetchDeletedUsers();
+}else{
+    useStore.getState().actions.fetchUsers();
+}
+}, [isDeleteSelected]);
+
 
     return (
         <div className={classes.container}>
