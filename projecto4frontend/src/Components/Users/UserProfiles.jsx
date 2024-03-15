@@ -2,6 +2,8 @@ import classes from './UserProfiles.module.css';
 import useStore from "../../stores/Userstore";
 import { useState } from 'react';
 import DeleteButton from '../Buttons/DeleteButton'; 
+import RestoreButton from '../Buttons/RestoreButton';
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 const UserProfiles = () => {
 
     const isProfilesOpen = useStore(state => state.isProfilesOpen);
@@ -10,6 +12,9 @@ const UserProfiles = () => {
     const selectedUser = useStore(state => state.selectedUser);
     const setSelectedUser = useStore(state => state.setSelectedUser);
     const names= selectedUser.name.split(" ");
+    const isDeleteSelected = useStore(state => state.isDeleteSelected);
+    const setIsDeleteSelected = useStore(state => state.setIsDeleteSelected);
+
 
     const [firstName, setFirstName] = useState(names[0]);
     const [lastName, setLastName] = useState(names[1]);
@@ -30,12 +35,33 @@ const UserProfiles = () => {
         });
         useStore.getState().actions.fetchDeletedUsers();
     }
+    async function restoreUSer(username){
+        await fetch(`http://localhost:8080/projecto4backend/rest/user/restore/${username}`, {
+            method: "POST",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+        });
+        useStore.getState().actions.fetchUsers();
+    }
 
 const handleDelete = (e) => {
         e.preventDefault();
+        setIsDeleteSelected();
     deleteUser(selectedUser.username);
+    setSelectedUser('');
+    setIsProfilesOpen();
         
     }
+const handleRestore = (e) => {
+        e.preventDefault();
+        setIsDeleteSelected();
+    restoreUSer(selectedUser.username);
+    setSelectedUser('');
+    setIsProfilesOpen();  
+    }  
 
    async function handleUpdateUser() {
         const user = {
@@ -83,6 +109,7 @@ const handleDelete = (e) => {
                                         name="firstName"
                                         value={firstName}
                                         onChange={(e) => setFirstName(e.target.value)}
+                                        readOnly={selectedUser.active ? undefined : "readOnly"}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -94,6 +121,7 @@ const handleDelete = (e) => {
                                         name="lastName"
                                         value={lastName}
                                         onChange={(e) => setLastName(e.target.value)}
+                                        readOnly={selectedUser.active ? undefined : "readOnly"}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -105,6 +133,7 @@ const handleDelete = (e) => {
                                         name="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
+                                        readOnly={selectedUser.active ? undefined : "readOnly"}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -127,6 +156,7 @@ const handleDelete = (e) => {
                                         name="contact"
                                         value={contact}
                                         onChange={(e) => setContact(e.target.value)}
+                                        readOnly={selectedUser.active ? undefined : "readOnly"}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -138,6 +168,7 @@ const handleDelete = (e) => {
                                         name="userPicture"
                                         value={userPicture}
                                         onChange={(e) => setUserPicture(e.target.value)}
+                                        readOnly={selectedUser.active ? undefined : "readOnly"}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -147,6 +178,8 @@ const handleDelete = (e) => {
                                         name="role"
                                         value={role}
                                         onChange={(e) => setRole(e.target.value)}
+                                        disabled={!selectedUser.active}
+                                        
                                     >
                                         <option value="developer">Developer</option>
                                         <option value="ScrumMaster">Scrum Master</option>
@@ -154,10 +187,11 @@ const handleDelete = (e) => {
                                     </select>
                                 </div>
                                 <div className={classes.buttonsdiv}>
-                                    <button onClick={(e) => {e.preventDefault(); handleUpdateUser(); }} type="submit" id="updateUser" value="Submit">
+                                    {selectedUser.active?<button onClick={(e) => {e.preventDefault(); handleUpdateUser(); }} type="submit" id="updateUser" value="Submit"  >
                                         Save
-                                    </button>
+                                    </button>: ""}
                                     <DeleteButton handleDelete={handleDelete} />
+                                    {!selectedUser.active ? <RestoreButton handleRestore={handleRestore} /> : ""}
                                 </div>
                             </div>
                         </form>

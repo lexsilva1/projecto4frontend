@@ -48,15 +48,15 @@ const Home = () => {
             useCategoriesStore.getState().actions.fetchCategories();
     }, []);
     
-
+const verdade = (!categoriesisOpen||!selected);
 
     return (
         <div>
             <Header handleEditProfileIsOpen={handleEditProfileIsOpen} updatedPhoto={updatedPhoto} updatedName={updatedName} />
             {categoriesisOpen?<CategoryCreator />:(selected ? <UserCreator /> :<TaskCreator />)}
             <main>
-                {!categoriesisOpen?<FilterCategories />:null}
-                {!categoriesisOpen?<FilterUsers />:null}
+                {(categoriesisOpen||selected)?null:<FilterCategories />}
+                {(categoriesisOpen||selected)?null:<FilterUsers />}
                 <DeletedButton />
                 <UsersButton />
                 <CategoriesButton />

@@ -16,6 +16,8 @@ function handleclick() {
     setSelected();
     categoriesisOpen ? setCategoriesOpen() : '';
     useStore.getState().actions.fetchUsers();
+    console.log("selected", selected);
+    console.log("categoriesisOpen", categoriesisOpen);
 
 }
 

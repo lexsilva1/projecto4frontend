@@ -3,8 +3,10 @@ import {persist, createJSONStorage} from 'zustand/middleware'
 
 const useCategoriesStore = create((set) => ({
     categoriesisOpen: false,
+    selectedCategory: '',
 
     setCategoriesOpen: () => set((state) => ({ categoriesisOpen: !state.categoriesisOpen })),
+    setSelectedCategory: (category) => set({selectedCategory: category}),
 
     persist: {
         categories: [], // the initial state

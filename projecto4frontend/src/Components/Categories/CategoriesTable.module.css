@@ -23,10 +23,11 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  height: 550px;
+  height: 465px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  
+  justify-content: space-between;
+  align-items: center;
   margin-right: 15px;
   margin-left: 15px;
   margin-bottom: 40px;
@@ -39,37 +40,43 @@
   scrollbar-width: thin;
   scrollbar-color: var(--green2) var(--white);
 }
-  .modalcontent {
-    align-self: center;
-    padding: 2rem 3rem;
-    background-color: var(--light-grey);
-    max-width: 100%;
-    width: 40rem;
-    border-radius: 5px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    gap: 1rem;
-    pointer-events: all;
-    transform: translate(-50%, -50%);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    translate: -50%, -50%;
-  }
-  .close {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.table{
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 50%;
+  table-layout: fixed;
+  background-color: color-mix(in srgb, var(--green1),transparent 50%);
+}
+.apagarButton {
+  position: relative;
+  right: 10px;
+  bottom: 10px;
+  max-width: 30px;
+  aspect-ratio: 2;
+  cursor: pointer;
+  transition: ease-on 0.01s;
+  background-color: transparent;
+  color: var(--black);
+}
+/* Animação do botão apagar */
+.apagarButton:hover {
+  transform: scale(1.2);
+  background-color: transparent;
+  transition: ease 0.01s;
+}
+.title{
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--green3);
+  padding-top: 2rem;
+}
+.header{
+  display:relative;
+  font-weight: bold;
+  color: var(--green3)
+}
+
+
   
