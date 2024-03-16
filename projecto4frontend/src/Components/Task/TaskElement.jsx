@@ -2,10 +2,29 @@ import React from 'react';
 import classes from './TaskElement.module.css'; 
 import darkCross from '../../multimedia/dark-cross-01.png'; // Importing image from the relative path
 import restore from '../../multimedia/restore.png'
+import useTaskStore from '../../stores/TaskStore';
 
 
-const TaskElement = ({ task, onDeleteTask, onDoubleClick }) => {
+const TaskElement = ({ task, onDoubleClick }) => {
   const role = sessionStorage.getItem('role');
+  const fetchDeletedTasks = useTaskStore(state => state.fetchDeletedTasks);
+  const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
+  const onDeleteTask = useTaskStore(state => state.onDeleteTask);
+  const onRestoreTask = useTaskStore(state => state.onRestoreTask);
+  const tasks = useTaskStore(state => state.tasks);
+  const setTasks = useTaskStore(state => state.setTasks);
+
+  const handleDelete = async (id) => {
+    await onDeleteTask(id);
+    setTasks(tasks.filter(task => task.id !== id));
+    await fetchActiveTasks();
+  }
+  const handleRestore = async (id) => {
+    await onRestoreTask(id);
+    setTasks(tasks.filter(task => task.id !== id));
+    await fetchDeletedTasks(); 
+  }
+
   const priorityClass =
     task.priority === 100
       ? classes.low
@@ -41,7 +60,7 @@ const TaskElement = ({ task, onDeleteTask, onDoubleClick }) => {
               src={darkCross}
               className={classes.apagarButton}
               id="delete-button99"
-              onClick={() => onDeleteTask(task.id)}
+              onClick={() => handleDelete(task.id)}
             />
           )}
         {role !== null &&
@@ -50,7 +69,7 @@ const TaskElement = ({ task, onDeleteTask, onDoubleClick }) => {
               src={restore}
               className={classes.restoreButton}
               id="restore-button99"
-              onClick={() => onDeleteTask(task.id)}
+              onClick={() => handleRestore(task.id)}
             />
           )}
       </div>
