@@ -3,6 +3,10 @@
     color: var(--black) !important;
     border-width: 2px !important;
     color: #8ad6ff !important;
+    border-color: #97a7b0 !important;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.8s ease;
+    transform: translateY(4px);
 }
 .selected:hover{
     background-color: color-mix(in srgb, var(--green3), white 25%);

@@ -1,13 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import classes from './TaskCreator.module.css';
-import { useNavigate } from 'react-router-dom';
 import useTaskStore from '../stores/TaskStore';
 
 
 
 const TaskCreator = () => {
-const navigate = useNavigate();
 const [category, setCategory] = useState('');
 const onAddTask = useTaskStore(state => state.onAddTask);
 const [priority, setPriority] = useState('');
@@ -15,6 +13,9 @@ const [startDate, setStartDate] = useState('');
 const [endDate, setEndDate] = useState('');
 const [title, setTitle] = useState('');
 const [description, setDescription] = useState('');
+const [clickedPriority, setClickedPriority] = useState('');
+const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
+
 
 useEffect(() => {
     getCategories();
@@ -41,35 +42,90 @@ async function getCategories() {
         select.appendChild(option);
     });
 }
+const setSelectdPriority = (priority) => {
+    return () => {
+        setPriority(priority);
+        setClickedPriority(priority);
+    };
+}
+function clearInputs(){
+    setTitle('');
+    setDescription('');
+    setCategory('');
+    setPriority('');
+    setStartDate('');
+    setEndDate('');
+    setClickedPriority('');
+    document.getElementById('warningMessage2').innerHTML = '';
+    document.getElementById('low-button-home').classList.remove(classes.selected);
+    document.getElementById('medium-button-home').classList.remove(classes.selected);
+    document.getElementById('high-button-home').classList.remove(classes.selected);
+    document.getElementById('startdate').value = '';
+    document.getElementById('enddate').value = '';
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('taskDescription').value = '';
+}
+
+
+async function handleAddTask(e) {
+    e.preventDefault();
+    if (title === '' || description === '' || category === '' ) {
+        document.getElementById('warningMessage2').innerHTML = 'All fields are required';
+    } else if (startDate > endDate) {
+        document.getElementById('warningMessage2').innerHTML = 'Start date must be before end date';
+    } else {
+        const task = {
+            title: title,
+            description: description,
+            category: category,
+            priority: priority === '' ? 100 : priority,
+            startDate: startDate === '' ? new Date().toISOString().split('T')[0] : startDate,
+            endDate: endDate === '' ? '2199-12-31' : endDate,
+        };
+        console.log('Creating task...', task);
+        await onAddTask(task);
+        fetchActiveTasks();
+        clearInputs();
+    }
+}
+
+
 
 
     return (
         <aside className={classes.asideOpen}>
             <h3>Add task</h3>
-            <div>
+            
+            <div>    
                 <input
                     type="text"
                     className={classes.taskName}
                     placeholder="Title (required)"
                     maxLength="15"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    id='taskTitle'
                 />
                 <textarea
                     className={classes.taskDescription}
                     placeholder="Description (required)"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    id='taskDescription'
                 ></textarea>
                 <br />
                 <label htmlFor="taskCategory">Category</label>
-                <select id="taskCategory"></select>
+                <select value={category} onChange={(e) => setCategory(e.target.value)} id="taskCategory"></select>
                 <br />
                 <label>Priority</label>
                 <div className={classes.prioritydiv}>
-                <button  className={`${classes.priorityButtonHome} ${classes.low}`} id="low-button-home">
+                <button onClick={setSelectdPriority(100)}  className={`${classes.priorityButtonHome} ${classes.low} ${clickedPriority===100? classes.selected : ''}`} id="low-button-home">
                     Low
                 </button>
-                <button className={`${classes.priorityButtonHome} ${classes.medium}`} id="medium-button-home">
+                <button onClick={setSelectdPriority(200)} className={`${classes.priorityButtonHome} ${classes.medium} ${clickedPriority===200? classes.selected : ''}`} id="medium-button-home">
                     Medium
                 </button>
-                <button className={`${classes.priorityButtonHome} ${classes.high}`} id="high-button-home">
+                <button onClick={setSelectdPriority(300)} className={`${classes.priorityButtonHome} ${classes.high} ${clickedPriority===300? classes.selected : ''}`} id="high-button-home">
                     High
                 </button>
                 </div>
@@ -81,6 +137,11 @@ async function getCategories() {
                     id="startdate"
                     type="date"
                     placeholder="Start-date"
+                    value={startDate}
+                    onChange={(e) => {
+                        setStartDate(e.target.value);
+                    }
+                }
                 />
                 <label htmlFor="enddate">Final Date</label>
                 <input
@@ -88,9 +149,15 @@ async function getCategories() {
                     id="enddate"
                     type="date"
                     placeholder="End-date"
+                    value={endDate}
+                    onChange={(e) => {
+                        setEndDate(e.target.value);
+                    }
+                }
                 />
             </div>
-            <button className={classes.addTask}>Add task</button>
+            <button onClick={handleAddTask} className={classes.addTask} >Add task</button>
+        
             <p id="warningMessage2"></p>
         </aside>
     );
