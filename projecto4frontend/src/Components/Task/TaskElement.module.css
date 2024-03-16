@@ -12,18 +12,38 @@
     cursor: pointer;
     transition: all 0.5s ease-in-out;
   }
-  .task:first-child {
-    margin-top: 100px; /* ajuste este valor conforme necessário */
-  }
-  
+  .panel::-webkit-scrollbar,
+.text-task::-webkit-scrollbar {
+  width: 13px;
+}
+/* Cor da barra */
+.panel::-webkit-scrollbar-thumb,
+.text-task::-webkit-scrollbar-thumb {
+  background-color: var(--green2);
+  border-top-right-radius: 8px;
+}
+/* Distância à direita a que a barra fica da border, cor do trilho e arredondamento para fazer
+match ao arredondamento do painel (home.html) */
+.panel::-webkit-scrollbar-track,
+.text-task::-webkit-scrollbar-track {
+  margin-right: 1px;
+  background-color: var(--white);
+  border-top-right-radius: 9px;
+}
+/* Altura da scroll bar */
+.panel::-webkit-scrollbar,
+.text-task::-webkit-scrollbar {
+  height: calc(100% - 2px);
+  padding-right: 1px;
+}  
   /* Esconde o texto da description */
-  .post-it-text {
+  .postItText {
     max-height: 0;
     transition: all 0.5s ease;
     overflow: hidden;
   }
   /* Definições do conteúdo de cada post-it */
-  .post-it {
+  .postIt {
     position: absolute;
     top: 0;
     left: 0;
@@ -31,12 +51,12 @@
     bottom: 0;
     text-align: left;
   }
-  .post-it h3 {
+  .postIt h3 {
     font-size: 15px;
     text-transform: uppercase;
     padding-left: 13px;
   }
-  .post-it p {
+  .postIt p {
     font-size: 0.825rem;
     padding-inline: 13px;
     overflow: hidden;
@@ -64,7 +84,7 @@
     transition: all 0.5s ease-in-out;
   }
   /* Faz o texto do post-it aparecer */
-  .task:hover .post-it-text {
+  .task:hover .postItText {
     max-height: 190px;
     transition: all 0.5s ease;
   }
@@ -103,3 +123,28 @@
     rotate: 360deg;
     transition: ease 0.01s;
   }
+.deleted {
+  opacity: 0.5;
+}
+.restoreButton {
+  position: absolute; /* Posiciona o botão no canto superior esquerdo */
+  bottom: 10px;
+  left: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  max-width: 17px;
+  transition: ease-on 0.01s;
+}
+.restoreButton:hover {
+  rotate: 360deg;
+  transition: ease 0.01s;
+}  
+.task .restoreButton {
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+/* Mostra na mini-janela do post-it */
+.task:hover .restoreButton {
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
+}

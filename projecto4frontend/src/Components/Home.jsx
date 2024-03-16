@@ -15,6 +15,7 @@ import UserCreator from "./UserCreator";
 import useCategoriesStore from "../stores/CategoriesStore";
 import CategoriesTable from "./Categories/CategoriesTable";
 import CategoryCreator from "./CategoryCreator";
+import useTaskStore from "../stores/TaskStore";
 
 const Home = () => {
     const role = sessionStorage.getItem("role");
@@ -28,8 +29,10 @@ const Home = () => {
     const [updatedName, setUpdatedName] = useState('');
     const selected = useStore(state => state.selected);
     const users = useStore(state => state.users);
+    const tasks = useTaskStore(state => state.tasks);
     const isProfilesOpen = useStore(state => state.isProfilesOpen);
     const categoriesisOpen = useCategoriesStore(state => state.categoriesisOpen);
+    
     
 
     const handleUpdateUser = (photo, name) => {
@@ -47,8 +50,7 @@ const Home = () => {
     useEffect(() => {
             useCategoriesStore.getState().actions.fetchCategories();
     }, []);
-    
-const verdade = (!categoriesisOpen||!selected);
+
 
     return (
         <div>

@@ -34,7 +34,7 @@ const useStore = create((set) => ({
         },
     
     fetchUsers: async () => {
-        const response = await fetch("http://localhost:8080/projecto4backend/rest/user/all", {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/user/allActive", {
             method: "GET",
             headers: {
                 Accept: "*/*",

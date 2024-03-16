@@ -1,7 +1,11 @@
 import React from 'react';
-import classes from './TaskElement.module.css'; // Importing module classes
+import classes from './TaskElement.module.css'; 
+import darkCross from '../../multimedia/dark-cross-01.png'; // Importing image from the relative path
+import restore from '../../multimedia/restore.png'
+
 
 const TaskElement = ({ task, onDeleteTask, onDoubleClick }) => {
+  const role = sessionStorage.getItem('role');
   const priorityClass =
     task.priority === 100
       ? classes.low
@@ -11,14 +15,17 @@ const TaskElement = ({ task, onDeleteTask, onDoubleClick }) => {
       ? classes.high
       : '';
 
+  const activeClass = !task.active ? classes.deleted : ''; 
   return (
     <div
-      className={`${classes.task} ${priorityClass}`} // Using module classes
+      className={`${classes.task} ${priorityClass} ${activeClass}`} // Using module classes
+      
       draggable
       category={task.category}
       id={task.id}
       priority={task.priority}
       onDoubleClick={onDoubleClick}
+
     >
       <div className={classes.postIt}>
         <h3>{task.title}</h3>
@@ -28,12 +35,21 @@ const TaskElement = ({ task, onDeleteTask, onDoubleClick }) => {
           </h5>
           <p>{task.description}</p>
         </div>
-        {sessionStorage.getItem('role') !== null &&
-          sessionStorage.getItem('role') !== 'developer' && (
+        {role !== null &&
+          role !== 'developer' && (
             <img
-              src="multimedia/dark-cross-01.png"
+              src={darkCross}
               className={classes.apagarButton}
               id="delete-button99"
+              onClick={() => onDeleteTask(task.id)}
+            />
+          )}
+        {role !== null &&
+          task.active === false && (
+            <img
+              src={restore}
+              className={classes.restoreButton}
+              id="restore-button99"
               onClick={() => onDeleteTask(task.id)}
             />
           )}
