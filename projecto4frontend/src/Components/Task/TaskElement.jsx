@@ -13,6 +13,7 @@ const TaskElement = ({ task, onDoubleClick }) => {
   const onRestoreTask = useTaskStore(state => state.onRestoreTask);
   const tasks = useTaskStore(state => state.tasks);
   const setTasks = useTaskStore(state => state.setTasks);
+  const onUpdateStatus = useTaskStore(state => state.onUpdateStatus);
 
   const handleDelete = async (id) => {
     await onDeleteTask(id);
@@ -44,7 +45,10 @@ const TaskElement = ({ task, onDoubleClick }) => {
       id={task.id}
       priority={task.priority}
       onDoubleClick={onDoubleClick}
-
+      onDragStart={(e) => {
+        e.dataTransfer.setData('text/plain', task.id);
+      }
+      }
     >
       <div className={classes.postIt}>
         <h3>{task.title}</h3>

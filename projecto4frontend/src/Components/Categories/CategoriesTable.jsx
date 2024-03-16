@@ -24,6 +24,7 @@ const handleDelete = async (category) => {
             "Content-Type": "application/json",
             token: sessionStorage.getItem("token"),
         },
+        
     });
 }
 

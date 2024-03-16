@@ -222,3 +222,10 @@
     margin-top: 5px; 
     gap: 5px;
 }
+.selected{
+    border-color: #97a7b0 !important;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.8s ease;
+    transform: translateY(4px);
+  }
+

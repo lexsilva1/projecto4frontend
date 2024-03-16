@@ -66,7 +66,38 @@ const useTaskStore = create(set => ({
         if(response.status === 200){
             
         }
-    }   
+    },
+    onAddTask: async (task) => {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/task/add", {
+            method: "POST",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+            body: JSON.stringify(task),
+        });
+        if(response.status === 200){
+        }
+    },
+    onUpdateStatus: async (id, status) => {
+        const taskStatus = {
+            id: id,
+            status: status
+        };
+        
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/changeStatus/${id}`, {
+            method: "PATCH",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+            body: JSON.stringify(taskStatus),
+        });
+        if(response.status === 200){
+        }
+    },
 
 
 

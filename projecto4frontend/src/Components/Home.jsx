@@ -59,7 +59,7 @@ const Home = () => {
             <main>
                 {(categoriesisOpen||selected)?null:<FilterCategories />}
                 {(categoriesisOpen||selected)?null:<FilterUsers />}
-                <DeletedButton />
+                { !categoriesisOpen ?<DeletedButton /> :null}
                 <UsersButton />
                 <CategoriesButton />
                { categoriesisOpen ? <CategoriesTable />:  <Panels  users={users}/>}

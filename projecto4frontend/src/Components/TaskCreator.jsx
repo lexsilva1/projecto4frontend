@@ -2,15 +2,25 @@
 import React, { useState, useEffect } from 'react';
 import classes from './TaskCreator.module.css';
 import { useNavigate } from 'react-router-dom';
+import useTaskStore from '../stores/TaskStore';
 
 
 
 const TaskCreator = () => {
 const navigate = useNavigate();
 const [category, setCategory] = useState('');
+const onAddTask = useTaskStore(state => state.onAddTask);
+const [priority, setPriority] = useState('');
+const [startDate, setStartDate] = useState('');
+const [endDate, setEndDate] = useState('');
+const [title, setTitle] = useState('');
+const [description, setDescription] = useState('');
+
 useEffect(() => {
     getCategories();
 }, []);
+
+
 
 async function getCategories() {    
     const response = await fetch("http://localhost:8080/projecto4backend/rest/task/allCategories", {
@@ -26,11 +36,12 @@ async function getCategories() {
     select.innerHTML = ""; // Clear the select options before adding new ones
     data.forEach((category) => {
         const option = document.createElement("option");
-        option.value = category.id;
+        option.value = category.name;
         option.text = category.name;
         select.appendChild(option);
     });
 }
+
 
     return (
         <aside className={classes.asideOpen}>
@@ -52,7 +63,7 @@ async function getCategories() {
                 <br />
                 <label>Priority</label>
                 <div className={classes.prioritydiv}>
-                <button className={`${classes.priorityButtonHome} ${classes.low}`} id="low-button-home">
+                <button  className={`${classes.priorityButtonHome} ${classes.low}`} id="low-button-home">
                     Low
                 </button>
                 <button className={`${classes.priorityButtonHome} ${classes.medium}`} id="medium-button-home">
