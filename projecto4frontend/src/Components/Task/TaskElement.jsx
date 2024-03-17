@@ -3,9 +3,11 @@ import classes from './TaskElement.module.css';
 import darkCross from '../../multimedia/dark-cross-01.png'; // Importing image from the relative path
 import restore from '../../multimedia/restore.png'
 import useTaskStore from '../../stores/TaskStore';
+import { useNavigate } from 'react-router-dom';
 
 
-const TaskElement = ({ task, onDoubleClick }) => {
+
+const TaskElement = ({ task }) => {
   const role = sessionStorage.getItem('role');
   const fetchDeletedTasks = useTaskStore(state => state.fetchDeletedTasks);
   const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
@@ -25,6 +27,10 @@ const TaskElement = ({ task, onDoubleClick }) => {
     setTasks(tasks.filter(task => task.id !== id));
     await fetchDeletedTasks(); 
   }
+  const navigate = useNavigate();
+  const onDoubleClick = () =>{
+    navigate(`/task/${task.id}`);
+  };
 
   const priorityClass =
     task.priority === 100
