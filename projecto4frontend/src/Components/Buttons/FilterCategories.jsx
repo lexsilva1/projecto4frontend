@@ -1,5 +1,7 @@
 import classes from './FilterCategories.module.css';
 import React, { useEffect } from 'react';
+import { useState } from 'react';
+import useTaskStore from '../../stores/TaskStore';
 
 const FilterCategories = () => {
 
@@ -19,18 +21,36 @@ async function getCategories() {
     const data = await response.json();
     const select = document.getElementById("filter");
     select.innerHTML = ""; // Clear the select options before adding new ones
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.text = "All";
+    select.appendChild(defaultOption);
     data.forEach((category) => {
         const option = document.createElement("option");
-        option.value = category.id;
+        option.value = category.name;
         option.text = category.name;
         select.appendChild(option);
     });
 }
+const [selctedCategory, setSelectedCategory] = useState('');
+const filterByCategory = useTaskStore(state => state.onFilterByCategory);
+const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
+async function handleFilter(category) {
+    setSelectedCategory(category);
+    filterByCategory(category);
+}
+
+
+const handleChange = async (category) => {
+    category === "" ? fetchActiveTasks : handleFilter(category);
+}
+
+
 
     return (
         <div className={classes.filtercontainer}>
             <label className={classes.filter} htmlFor="filter">Filter by category:</label>
-            <select className={classes.filter} id="filter" ></select>
+            <select onChange={(e) => handleChange(selctedCategory)} value={selctedCategory} className={classes.filter} id="filter" ></select>
         </div>
     );
 }

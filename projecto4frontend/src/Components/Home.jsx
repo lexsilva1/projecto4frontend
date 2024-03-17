@@ -16,6 +16,7 @@ import useCategoriesStore from "../stores/CategoriesStore";
 import CategoriesTable from "./Categories/CategoriesTable";
 import CategoryCreator from "./CategoryCreator";
 import useTaskStore from "../stores/TaskStore";
+import classes from './Home.module.css';
 
 const Home = () => {
     const role = sessionStorage.getItem("role");
@@ -57,18 +58,18 @@ const Home = () => {
             <Header handleEditProfileIsOpen={handleEditProfileIsOpen} updatedPhoto={updatedPhoto} updatedName={updatedName} />
             {categoriesisOpen?<CategoryCreator />:(selected ? <UserCreator /> :<TaskCreator />)}
             <main>
+                <div className={`${role === 'developer' ? classes.devfilters : classes.filters} `}>
                 {(categoriesisOpen||selected)?null:<FilterCategories />}
                 {(categoriesisOpen||selected)?null:<FilterUsers />}
-                { !categoriesisOpen ?<DeletedButton /> :null}
-                <UsersButton />
-                <CategoriesButton />
+                {role !== 'developer' ?<DeletedButton /> :null}
+                {role === 'developer' ? null :<UsersButton />}
+                {role === 'Owner' ? <CategoriesButton /> : null}
+                </div>
                { categoriesisOpen ? <CategoriesTable />:  <Panels  users={users}/>}
             </main>
             <Footer />
             <EditMyProfileModal EditProfileIsOpen={editProfileIsOpen} handleEditProfileIsOpen={handleEditProfileIsOpen} onUpdatedInfo={handleUpdateUser} />
            {isProfilesOpen ? <UserProfiles />: null}
-           
-
         </div>
     );
 }

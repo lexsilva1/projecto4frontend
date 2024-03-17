@@ -1,0 +1,17 @@
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+.devfilters{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 10px;
+    padding-bottom: 47px;
+}
+.filters{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 10px;
+}

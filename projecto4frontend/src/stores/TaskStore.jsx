@@ -98,6 +98,31 @@ const useTaskStore = create(set => ({
         if(response.status === 200){
         }
     },
+    onFilterByCategory: async (category) => {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/ByCategory/${category}`, {
+            method: "GET",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+        });
+        const data = await response.json();
+        set({ tasks: data });
+    },
+    onFilterByUser: async (username) => {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/ByUser/${username}`, {
+            method: "GET",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+        });
+        const data = await response.json();
+        set({ tasks: data });
+    }
+
 
 
 
