@@ -39,8 +39,7 @@ const TaskElement = ({ task, onDoubleClick }) => {
   return (
     <div
       className={`${classes.task} ${priorityClass} ${activeClass}`} // Using module classes
-      
-      draggable
+      draggable = {task.active ? true : null}
       category={task.category}
       id={task.id}
       priority={task.priority}

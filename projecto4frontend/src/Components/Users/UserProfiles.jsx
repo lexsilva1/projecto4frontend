@@ -189,9 +189,9 @@ const handleRestore = (e) => {
                                 <div className={classes.buttonsdiv}>
                                     {selectedUser.active?<button onClick={(e) => {e.preventDefault(); handleUpdateUser(); }} type="submit" id="updateUser" value="Submit"  >
                                         Save
-                                    </button>: ""}
+                                    </button>: <RestoreButton handleRestore={handleRestore} />}
                                     <DeleteButton handleDelete={handleDelete} />
-                                    {!selectedUser.active ? <RestoreButton handleRestore={handleRestore} /> : ""}
+                                   
                                 </div>
                             </div>
                         </form>
