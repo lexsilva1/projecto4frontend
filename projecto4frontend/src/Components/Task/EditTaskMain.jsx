@@ -21,6 +21,7 @@ const EditTaskMain = () => {
     const [taskCategory, setTaskCategory] = useState(editedTask.category);
     const [taskPriority, setTaskPriority] = useState(editedTask.priority);
     const [taskStatus, setTaskStatus] = useState(editedTask.status);
+    const onUpdateTask = useTaskStore(state => state.onUpdateTask);
     console.log(editedTask);
 
 
@@ -76,13 +77,13 @@ const setInitialPriority = () => {
 const setSelectedStatus = (status) => {
     return () => {
         setClickedStatus(status);
-        console.log(status);
+        setTaskStatus(status);
     }
 }
 const setSelectdPriority = (priority) => {
     return () => {
         setClickedPriority(priority);
-        console.log(priority);
+        setTaskPriority(priority);
     }
 }
 
@@ -90,27 +91,51 @@ const setSelectdPriority = (priority) => {
     const handleCancel = () =>{
         navigate('/home');
     }
+const handleSaveTask = async () => {  
+    if (taskTitle === '' || taskDescription === '' || taskCategory === '' ) {
+        document.getElementById('warningMessage3').innerHTML = 'All fields are required';
+        return;
+    } else if (taskStartDate > taskEndDate) {
+        document.getElementById('warningMessage3').innerHTML = 'Start date must be before end date';
+        return;
+    }else{
+        taskStartDate === '' ? new Date().toISOString().split('T')[0] : taskStartDate;
+        taskEndDate === '' ? '2199-12-31' : taskEndDate;
+    }
+    const task = {
+        id: editedTaskId,
+        title: taskTitle,
+        description: taskDescription,
+        category: taskCategory,
+        priority: clickedPriority,
+        startDate: taskStartDate,
+        endDate: taskEndDate,
+        status: clickedStatus,
+    };
+    await onUpdateTask(task);
+    navigate('/home');
+}
   return (
     <main className={classes.maintask}>
         <div className={classes.detalhesTask}>
             <div className={classes.breadcrumb}>
-                <ul>
-                  <li onClick={handleCancel} id="link-bc"><a>Back</a></li>
+                <ul className={classes.breadcrumb}>
+                  <li className={classes.breadcrumb} onClick={handleCancel} id="link-bc"><a className={classes.breadcrumb}>Back</a></li>
                 </ul>
-                <label id="taskCreator">TASK CREATOR:{taskCreator.name}</label>
+                <label classname ={classes.taskCreator} id="taskCreator">TASK CREATOR:{taskCreator.name}</label>
               </div>
               <div>
                 <label className={classes.labelEditTask} for="titulo-task">TITLE</label> 
-                <textarea className={classes.title} id="titulo-task">{taskTitle}</textarea>
+                <textarea className={classes.tituloTask} onChange={(e) => setTaskTitle(e.target.value)} className={classes.title} id="titulo-task">{taskTitle}</textarea>
             </div>
             <div>
                 <label className={classes.labelEditTask} htmlFor="descricao-task">DESCRIPTION</label> 
-                <textarea className={classes.description} id="descricao-task">{taskDescription}</textarea>
+                <textarea onChange={(e) => setTaskDescription(e.target.value)} className={classes.description} id="descricao-task">{taskDescription}</textarea>
             </div>
            
-            <p id="warningMessage3"></p>
+            <p className={classes.warningMessage3} id="warningMessage3"></p>
             <div className={classes.tasksave}>
-                <button  id="save-button">Save</button>
+                <button onClick={handleSaveTask}  id="save-button">Save</button>
                 <button onClick={handleCancel}  id="cancel-button">Cancel</button>
             </div>
         </div>
@@ -132,20 +157,20 @@ const setSelectdPriority = (priority) => {
                         <button onClick={setSelectdPriority(300)} className={`${classes.prioritybutton} ${classes.high} ${clickedPriority===300? classes.selected : ''}`} id="high-button">High</button>
                     </div>
                 </div>
-                <div id="taskDate">
+                <div className={classes.taskDate} id="taskDate">
                     <div>
-                        <label className={classes.labelEditTask} for="startdate">INITIAL DATE</label>
-                        <input value={taskStartDate} className={classes.dateinput} id ="startdateEditTask" type ="date" placeholder="Start-date" />
+                        <label className={`${classes.labelEditTask} ${classes.taskDate}`} for="startdate">INITIAL DATE</label>
+                        <input onChange={(e) => setTaskStartDate(e.target.value)} value={taskStartDate} className={`${classes.dateinput} ${classes.taskDate}`} id ="startdateEditTask" type ="date" placeholder="Start-date" />
                     </div>
                     <div>
-                        <label className={classes.labelEditTask} for="enddate">FINAL DATE</label>
-                        <input value={taskEndDate } className={classes.dateinput} id ="enddateEditTask" type ="date" placeholder="End-date" />
+                        <label className={`${classes.labelEditTask} ${classes.taskDate}`} for="enddate">FINAL DATE</label>
+                        <input onChange={(e) => setTaskEndDate(e.target.value)} value={taskEndDate } className={`${classes.dateinput} ${classes.taskDate}`} id ="enddateEditTask" type ="date" placeholder="End-date" />
                             
                     </div>
                     <div>
                         <label className={classes.labelEditTask}
                          for="category">CATEGORY</label>
-                        <select id="categoryEditTask"></select>
+                        <select className={classes.taskDate} onChange={(e) => setTaskCategory(e.target.value)} value={taskCategory} id="categoryEditTask"></select>
                       </div>
                 </div>
             </div>

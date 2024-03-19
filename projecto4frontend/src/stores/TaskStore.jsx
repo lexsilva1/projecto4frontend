@@ -155,6 +155,19 @@ const useTaskStore = create(set => ({
         const data = await response.json();
         setEditedTask( data);
     },
+    onUpdateTask: async (task) => {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/task/update", {
+            method: "PUT",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+            body: JSON.stringify(task),
+        });
+        if(response.status === 200){
+        }
+    },
 
 
 
