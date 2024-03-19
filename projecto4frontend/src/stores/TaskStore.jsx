@@ -1,6 +1,27 @@
 import { create} from "zustand";
 
 const useTaskStore = create(set => ({
+    editedTask: null,
+    setEditedTask: (task) => set({ editedTask: task }),
+
+   editedTaskId: null,
+    setEditedTaskId: (id) => set({ editedTaskId: id }),
+
+    taskCreator : null,
+    setTaskCreator: (creator) => set({ taskCreator: creator }),
+    fetchTaskCreator: async (id) => {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/creator/${id}`, {
+            method: "GET",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+        });
+        const data = await response.json();
+        set({taskCreator: data} );
+    },
+   
     tasks: [],
 
     setTasks: (tasks) => set({ tasks: tasks }),
@@ -121,7 +142,20 @@ const useTaskStore = create(set => ({
         });
         const data = await response.json();
         set({ tasks: data });
-    }
+    },
+    fetchTaskById: async (id) => {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/${id}`, {
+            method: "GET",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+        });
+        const data = await response.json();
+        setEditedTask( data);
+    },
+
 
 
 

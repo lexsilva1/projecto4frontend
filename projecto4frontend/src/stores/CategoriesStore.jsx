@@ -8,10 +8,10 @@ const useCategoriesStore = create((set) => ({
     setCategoriesOpen: () => set((state) => ({ categoriesisOpen: !state.categoriesisOpen })),
     setSelectedCategory: (category) => set({selectedCategory: category}),
 
-    persist: {
-        categories: [], // the initial state
-    },
-    actions:
+    
+categories: [], // the initial state
+  
+actions:
     {
         fetchCategories: async () => {
             const response = await fetch("http://localhost:8080/projecto4backend/rest/task/allCategories", {

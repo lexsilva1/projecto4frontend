@@ -9,46 +9,82 @@ import { useEffect } from "react";
 const EditTaskMain = () => {
     const [clickedPriority, setClickedPriority] = useState('');
     const [clickedStatus, setClickedStatus] = useState('');
+    const role = sessionStorage.getItem('role');
+    const categories = useCategoriesStore(state => state.categories);
+    const editedTask = useTaskStore(state => state.editedTask);
+    const editedTaskId = useTaskStore(state => state.editedTaskId);
+    const taskCreator = useTaskStore(state => state.taskCreator);
+    const [taskTitle, setTaskTitle] = useState(editedTask.title);
+    const [taskDescription, setTaskDescription] = useState(editedTask.description);
+    const [taskStartDate, setTaskStartDate] = useState(editedTask.startDate);
+    const [taskEndDate, setTaskEndDate] = useState(editedTask.endDate);
+    const [taskCategory, setTaskCategory] = useState(editedTask.category);
+    const [taskPriority, setTaskPriority] = useState(editedTask.priority);
+    const [taskStatus, setTaskStatus] = useState(editedTask.status);
+    console.log(editedTask);
+
+
     
-useEffect(() => {
-    getCategories();
-}, []);
-async function getCategories() {    
-    const response = await fetch("http://localhost:8080/projecto4backend/rest/task/allCategories", {
-        method: "GET",
-        headers: {
-            Accept: "*/*",
-            "Content-Type": "application/json",
-            token: sessionStorage.getItem("token"),
-        },
-    });
-    const data = await response.json();
-    const select = document.getElementById("categoryEditTask");
-    select.innerHTML = ""; // Clear the select options before adding new ones
-    const defaultOption = document.createElement("option");
-    defaultOption.value = "";
-    defaultOption.text = "";
-    select.appendChild(defaultOption);
-    data.forEach((category) => {
-        const option = document.createElement("option");
-        option.value = category.name;
-        option.text = category.name;
-        select.appendChild(option);
-    });
+useEffect( () => {
+    setCategories();
+    setInitialStatus();
+    setInitialPriority();
+    setTaskStartDate(editedTask.startDate);
+    if(editedTask.endDate === '2199-12-31'){
+        setTaskEndDate('');
+    } else {
+        setTaskEndDate(editedTask.endDate);
+    }
+    }, []);
+
+async function setCategories(){
+await useCategoriesStore.getState().actions.fetchCategories(); // Fetch categories asynchronously    
+const select = document.getElementById("categoryEditTask");
+select.innerHTML = ""; // Clear the select options before adding new ones
+const defaultOption = document.createElement("option");
+defaultOption.value = "";
+defaultOption.text = "";
+select.appendChild(defaultOption);
+categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category.name;
+    option.text = category.name;
+    select.appendChild(option);
+});
 }
 
-    const setSelectedStatus = (status) => {
-        return () => {
-            setClickedStatus(status);
-            console.log(status);
-        }
+const setInitialStatus = () => {
+    if (editedTask.status === 10) {
+        setClickedStatus(10);
+    } else if (editedTask.status === 20) {
+        setClickedStatus(20);
+    } else if (editedTask.status === 30) {
+        setClickedStatus(30);
     }
-    const setSelectdPriority = (priority) => {
-        return () => {
-            setClickedPriority(priority);
-            console.log(priority);
-        }
+}
+
+const setInitialPriority = () => {
+    if (editedTask.priority === 100) {
+        setClickedPriority(100);
+    } else if (editedTask.priority === 200) {
+        setClickedPriority(200);
+    } else if (editedTask.priority === 300) {
+        setClickedPriority(300);
     }
+}
+
+const setSelectedStatus = (status) => {
+    return () => {
+        setClickedStatus(status);
+        console.log(status);
+    }
+}
+const setSelectdPriority = (priority) => {
+    return () => {
+        setClickedPriority(priority);
+        console.log(priority);
+    }
+}
 
     const navigate = useNavigate();
     const handleCancel = () =>{
@@ -59,17 +95,17 @@ async function getCategories() {
         <div className={classes.detalhesTask}>
             <div className={classes.breadcrumb}>
                 <ul>
-                  <li onClick={handleCancel} id="link-bc"><a href="home.html">Back</a></li>
+                  <li onClick={handleCancel} id="link-bc"><a>Back</a></li>
                 </ul>
-                <label id="taskCreator">TASK CREATOR:</label>
+                <label id="taskCreator">TASK CREATOR:{taskCreator.name}</label>
               </div>
               <div>
                 <label className={classes.labelEditTask} for="titulo-task">TITLE</label> 
-                <textarea className={classes.title} id="titulo-task">Task 1</textarea>
+                <textarea className={classes.title} id="titulo-task">{taskTitle}</textarea>
             </div>
             <div>
-                <label className={classes.labelEditTask} for="descricao-task">DESCRIPTION</label> 
-                <textarea className={classes.description} id="descricao-task"></textarea>
+                <label className={classes.labelEditTask} htmlFor="descricao-task">DESCRIPTION</label> 
+                <textarea className={classes.description} id="descricao-task">{taskDescription}</textarea>
             </div>
            
             <p id="warningMessage3"></p>
@@ -99,11 +135,11 @@ async function getCategories() {
                 <div id="taskDate">
                     <div>
                         <label className={classes.labelEditTask} for="startdate">INITIAL DATE</label>
-                        <input className={classes.dateinput} id ="startdateEditTask" type ="date" placeholder="Start-date" />
+                        <input value={taskStartDate} className={classes.dateinput} id ="startdateEditTask" type ="date" placeholder="Start-date" />
                     </div>
                     <div>
                         <label className={classes.labelEditTask} for="enddate">FINAL DATE</label>
-                        <input className={classes.dateinput} id ="enddateEditTask" type ="date" placeholder="End-date" />
+                        <input value={taskEndDate } className={classes.dateinput} id ="enddateEditTask" type ="date" placeholder="End-date" />
                             
                     </div>
                     <div>

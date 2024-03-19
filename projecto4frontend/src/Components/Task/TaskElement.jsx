@@ -16,6 +16,12 @@ const TaskElement = ({ task }) => {
   const tasks = useTaskStore(state => state.tasks);
   const setTasks = useTaskStore(state => state.setTasks);
   const onUpdateStatus = useTaskStore(state => state.onUpdateStatus);
+  const setEditedTaskId = useTaskStore(state => state.setEditedTaskId);
+  const editedTask = useTaskStore(state => state.editedTask);
+  const setEditedTask = useTaskStore(state => state.setEditedTask);
+  const taskCreator = useTaskStore(state => state.taskCreator);
+  const setTaskCreator = useTaskStore(state => state.setTaskCreator);
+  const fetchTaskCreator = useTaskStore(state => state.fetchTaskCreator);
 
   const handleDelete = async (id) => {
     await onDeleteTask(id);
@@ -28,8 +34,14 @@ const TaskElement = ({ task }) => {
     await fetchDeletedTasks(); 
   }
   const navigate = useNavigate();
-  const onDoubleClick = () =>{
-    navigate(`/task/${task.id}`);
+  const onDoubleClick = async (id) =>{
+    setEditedTaskId(id);
+    setEditedTask(tasks.find(task => task.id === id));
+    await fetchTaskCreator(id);
+    
+    navigate(`/task/${id}`);
+    
+    
   };
 
   const priorityClass =
@@ -49,7 +61,7 @@ const TaskElement = ({ task }) => {
       category={task.category}
       id={task.id}
       priority={task.priority}
-      onDoubleClick={onDoubleClick}
+      onDoubleClick={() => onDoubleClick(task.id)}
       onDragStart={(e) => {
         e.dataTransfer.setData('text/plain', task.id);
       }
