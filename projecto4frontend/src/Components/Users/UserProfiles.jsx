@@ -4,8 +4,9 @@ import { useState } from 'react';
 import DeleteButton from '../Buttons/DeleteButton'; 
 import RestoreButton from '../Buttons/RestoreButton';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
+import DeleteAllTasksButton from '../Buttons/DeleteAllTasksButton';
 const UserProfiles = () => {
-
+    const loggedRole = sessionStorage.getItem('role');
     const isProfilesOpen = useStore(state => state.isProfilesOpen);
     const setIsProfilesOpen = useStore(state => state.setIsProfilesOpen);
 
@@ -196,6 +197,7 @@ const handleRestore = (e) => {
                             </div>
                         </form>
                         <img className={classes.userPic} id="userPicturePreview" src={userPicture} alt="" />
+                        {loggedRole === 'Owner'?  <DeleteAllTasksButton /> : null}
                     </div>
                 </div>
             )}

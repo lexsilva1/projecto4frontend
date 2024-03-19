@@ -168,6 +168,19 @@ const useTaskStore = create(set => ({
         if(response.status === 200){
         }
     },
+    onDeleteAllUsersTasks: async (username) => {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/deleteAll/${username}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+                token: sessionStorage.getItem("token"),
+            },
+        });
+        if(response.status === 200){
+            console.log('deleted');
+        }
+    }
 
 
 

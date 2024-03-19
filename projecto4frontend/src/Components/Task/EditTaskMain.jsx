@@ -22,7 +22,7 @@ const EditTaskMain = () => {
     const [taskPriority, setTaskPriority] = useState(editedTask.priority);
     const [taskStatus, setTaskStatus] = useState(editedTask.status);
     const onUpdateTask = useTaskStore(state => state.onUpdateTask);
-    console.log(editedTask);
+    
 
 
     
@@ -91,16 +91,16 @@ const setSelectdPriority = (priority) => {
     const handleCancel = () =>{
         navigate('/home');
     }
-const handleSaveTask = async () => {  
+const handleSaveTask = async () => { 
+    console.log(taskStartDate, taskEndDate)
     if (taskTitle === '' || taskDescription === '' || taskCategory === '' ) {
         document.getElementById('warningMessage3').innerHTML = 'All fields are required';
         return;
-    } else if (taskStartDate > taskEndDate) {
-        document.getElementById('warningMessage3').innerHTML = 'Start date must be before end date';
-        return;
-    }else{
-        taskStartDate === '' ? new Date().toISOString().split('T')[0] : taskStartDate;
-        taskEndDate === '' ? '2199-12-31' : taskEndDate;
+  
+    }else if (taskStartDate > taskEndDate) {
+        console.log(taskStartDate, taskEndDate)
+            document.getElementById('warningMessage3').innerHTML = 'Start date must be before end date';
+            return;
     }
     const task = {
         id: editedTaskId,
@@ -126,11 +126,11 @@ const handleSaveTask = async () => {
               </div>
               <div>
                 <label className={classes.labelEditTask} for="titulo-task">TITLE</label> 
-                <textarea className={classes.tituloTask} onChange={(e) => setTaskTitle(e.target.value)} className={classes.title} id="titulo-task">{taskTitle}</textarea>
+                <textarea  onChange={(e) => setTaskTitle(e.target.value)} value={taskTitle} className={classes.title} id="titulo-task"></textarea>
             </div>
             <div>
                 <label className={classes.labelEditTask} htmlFor="descricao-task">DESCRIPTION</label> 
-                <textarea onChange={(e) => setTaskDescription(e.target.value)} className={classes.description} id="descricao-task">{taskDescription}</textarea>
+                <textarea onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription} className={classes.description} id="descricao-task"></textarea>
             </div>
            
             <p className={classes.warningMessage3} id="warningMessage3"></p>
@@ -164,13 +164,19 @@ const handleSaveTask = async () => {
                     </div>
                     <div>
                         <label className={`${classes.labelEditTask} ${classes.taskDate}`} for="enddate">FINAL DATE</label>
-                        <input onChange={(e) => setTaskEndDate(e.target.value)} value={taskEndDate } className={`${classes.dateinput} ${classes.taskDate}`} id ="enddateEditTask" type ="date" placeholder="End-date" />
+                        <input onChange={(e) => e.target.value === '' ? setTaskEndDate(editedTask.endDate):setTaskEndDate(e.target.value)} value={taskEndDate } className={`${classes.dateinput} ${classes.taskDate}`} id ="enddateEditTask" type ="date" placeholder="End-date" />
                             
                     </div>
                     <div>
                         <label className={classes.labelEditTask}
                          for="category">CATEGORY</label>
-                        <select className={classes.taskDate} onChange={(e) => setTaskCategory(e.target.value)} value={taskCategory} id="categoryEditTask"></select>
+                        <select 
+                        className={classes.taskDate} 
+                        onChange={(e) => setTaskCategory(e.target.value)} 
+                        text={taskCategory} value={taskCategory} 
+                        id="categoryEditTask"
+
+                        ></select>
                       </div>
                 </div>
             </div>
