@@ -87,7 +87,7 @@ return (
             <button className={classes.button} type='submit' onClick={handleAddCategory}>Add</button>
         </div>
     
-    }
+    
     <div className={classes.editdiv} >
         
             <label className= {classes.title} htmlFor='description'>Edit Category</label>

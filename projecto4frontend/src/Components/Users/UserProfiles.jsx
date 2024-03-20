@@ -191,7 +191,7 @@ const handleRestore = (e) => {
                                     {selectedUser.active?<button onClick={(e) => {e.preventDefault(); handleUpdateUser(); }} type="submit" id="updateUser" value="Submit"  >
                                         Save
                                     </button>: <RestoreButton handleRestore={handleRestore} />}
-                                    {role==='Owner' && <DeleteButton handleDelete={handleDelete} />}
+                                    {loggedRole=== 'Owner' && <DeleteButton handleDelete={handleDelete} />}
                                 </div>
                             </div>
                         </form>

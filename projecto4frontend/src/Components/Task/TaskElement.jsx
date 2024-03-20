@@ -55,7 +55,7 @@ const TaskElement = ({ task }) => {
       category={task.category}
       id={task.id}
       priority={task.priority}
-      onDoubleClick={() => onDoubleClick(task.id)}
+      onDoubleClick={task.active ? () => onDoubleClick(task.id) : null}
       onDragStart={(e) => {
         e.dataTransfer.setData('text/plain', task.id);
       }

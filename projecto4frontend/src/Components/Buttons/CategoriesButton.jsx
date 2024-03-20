@@ -9,10 +9,13 @@ const CategoriesButton = () => {
     const categoriesIsOpen = useCategoriesStore(state => state.categoriesisOpen);
     const setSelected = usestore(state => state.setSelected);
     const selected = usestore(state => state.selected);
+    const isDeleteselected = usestore(state => state.isDeleteSelected);
+    const setIsDeleteSelected = usestore(state => state.setIsDeleteSelected);
 
     const handleCategoriesIsOpen = () => {
         setcategoriesisOpen();
         selected ? setSelected(false) : '';
+        isDeleteselected ? setIsDeleteSelected(false) : '';
     }
     return (
         <button onClick={handleCategoriesIsOpen} className={`${classes.button} ${categoriesIsOpen? classes.selected : ""}`}>Categories</button>

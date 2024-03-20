@@ -56,11 +56,11 @@ const Home = () => {
     return (
         <div>
             <Header handleEditProfileIsOpen={handleEditProfileIsOpen} updatedPhoto={updatedPhoto} updatedName={updatedName} />
-            {categoriesisOpen?<CategoryCreator />:(selected ? <UserCreator /> :<TaskCreator />)}
+            {categoriesisOpen?<CategoryCreator />:(selected  ? (role === 'Owner' ? <UserCreator /> : null) :<TaskCreator />)}
             <main>
                 <div className={`${role === 'developer' ? classes.devfilters : classes.filters} `}>
-                {(categoriesisOpen||selected)?null:<FilterCategories />}
-                {(categoriesisOpen||selected)?null:<FilterUsers />}
+                {(categoriesisOpen||selected) || role=== 'developer'?null:<FilterCategories />}
+                {(categoriesisOpen||selected) || role === 'developer' ?null:<FilterUsers />}
                 {(role !== 'developer' && (role==='ScrumMaster' && !selected)) || role==='Owner' ?<DeletedButton /> :null}
                 {role === 'developer' ? null :<UsersButton />}
                 {role === 'Owner' ? <CategoriesButton /> : null}
