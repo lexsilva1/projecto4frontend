@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import classes from './TaskCreator.module.css';
 import useTaskStore from '../stores/TaskStore';
+import useCategoriesStore from '../stores/CategoriesStore';
+
 
 
 
@@ -15,33 +17,12 @@ const [title, setTitle] = useState('');
 const [description, setDescription] = useState('');
 const [clickedPriority, setClickedPriority] = useState('');
 const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
-
-
-useEffect(() => {
-    getCategories();
-}, []);
+const fetchCategories = useCategoriesStore(state => state.fetchCategories);
+const categories = useCategoriesStore(state => state.categories);
 
 
 
-async function getCategories() {    
-    const response = await fetch("http://localhost:8080/projecto4backend/rest/task/allCategories", {
-        method: "GET",
-        headers: {
-            Accept: "*/*",
-            "Content-Type": "application/json",
-            token: sessionStorage.getItem("token"),
-        },
-    });
-    const data = await response.json();
-    const select = document.getElementById("taskCategory");
-    select.innerHTML = ""; // Clear the select options before adding new ones
-    data.forEach((category) => {
-        const option = document.createElement("option");
-        option.value = category.name;
-        option.text = category.name;
-        select.appendChild(option);
-    });
-}
+
 const setSelectdPriority = (priority) => {
     return () => {
         setPriority(priority);
@@ -136,7 +117,10 @@ async function handleAddTask(e) {
                 ></textarea>
                 <br />
                 <label htmlFor="taskCategory">Category</label>
-                <select value={category} onChange={(e) => setCategory(e.target.value)} id="taskCategory"></select>
+                <select value={category} onChange={(e) => setCategory(e.target.value)} id="taskCategory">
+                    <option value="">Select category</option>
+                    {categories.map(category => <option key={category.id} value={category.name}>{category.name}</option>)}
+                </select>
                 <br />
                 <label>Priority</label>
                 <div className={classes.prioritydiv}>

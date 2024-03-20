@@ -34,8 +34,23 @@ const useStore = create((set) => ({
                 //console.log(data);
             }
         },
-    
-    fetchUsers: async () => {
+        fetchAllUsers: async () => {
+            const response = await fetch("http://localhost:8080/projecto4backend/rest/user/all", {
+                method: "GET",
+                headers: {
+                    Accept: "*/*",
+                    "Content-Type": "application/json",
+                    token: sessionStorage.getItem("token"),
+                }
+            });
+            if(response.status === 200){
+                const data= await response.json();
+                set({users: data});
+                //console.log(data);
+            }
+        },
+        
+        fetchUsers: async () => {
         const response = await fetch("http://localhost:8080/projecto4backend/rest/user/allActive", {
             method: "GET",
             headers: {
