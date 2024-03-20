@@ -117,11 +117,27 @@ const handleSaveTask = async () => {
            if(taskEndDate !== '') {    
             document.getElementById('warningMessage3').innerHTML = 'Start date must be before end date';
             return;
-    }
-}
+    }else{
+        setTaskEndDate('2199-12-31');
+        const task = {
+            id: id,
+            title: taskTitle,
+            description: taskDescription,
+            category: taskCategory,
+            priority: clickedPriority,
+            startDate: taskStartDate,
+            endDate: '2199-12-31',
+            status: clickedStatus,
+        };
+        console.log(task);
+        await onUpdateTask(task);
+        navigate('/home');
+    }    
+}else{
+
 
     const task = {
-        id: editedTaskId,
+        id: id,
         title: taskTitle,
         description: taskDescription,
         category: taskCategory,
@@ -132,6 +148,7 @@ const handleSaveTask = async () => {
     };
     await onUpdateTask(task);
     navigate('/home');
+}
 }
   return (
     <main className={classes.maintask}>
