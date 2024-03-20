@@ -69,10 +69,30 @@ function clearInputs(){
 
 async function handleAddTask(e) {
     e.preventDefault();
+    console.log('title', title);
     if (title === '' || description === '' || category === '' ) {
         document.getElementById('warningMessage2').innerHTML = 'All fields are required';
+    } else {
+        if (endDate === '') {
+            console.log('end date', endDate);
+            const task = {
+                title: title,
+                description: description,
+                category: category,
+                priority: priority === '' ? 100 : priority,
+                startDate: startDate === '' ? new Date().toISOString().split('T')[0] : startDate,
+                endDate: endDate === '' ? '2199-12-31' : endDate,
+            };
+            console.log('Creating task...', task);
+            await onAddTask(task);
+            fetchActiveTasks();
+            clearInputs();
+        
+
     } else if (startDate > endDate) {
+        console.log('end date', endDate);
         document.getElementById('warningMessage2').innerHTML = 'Start date must be before end date';
+        
     } else {
         const task = {
             title: title,
@@ -87,6 +107,7 @@ async function handleAddTask(e) {
         fetchActiveTasks();
         clearInputs();
     }
+}
 }
 
 
