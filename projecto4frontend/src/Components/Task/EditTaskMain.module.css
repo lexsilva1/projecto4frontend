@@ -32,6 +32,7 @@
     color: var(--green3);
     margin-top: 10px;
     font-weight: bold;
+    text-decoration: none;
   }
   .labelEditTask {
     color: var(--green3);
@@ -69,17 +70,16 @@
     margin-left: 5px;
     color: var(--green3);
   }
+  .breadcrumb li:first-child::after {
+    text-decoration: underline;
+      }
   .breadcrumb li:last-child::after {
     content: none;
   }
-  .breadcrumb a {
-    text-decoration: underline;
-    color: var(--green3);
-  }
-  .breadcrumb a:hover {
-    text-decoration: underline;
+  .breadcrumb :hover {
     color: var(--green1);
   }
+  
   .description{
     height: 260px;
     font-size: 14px;

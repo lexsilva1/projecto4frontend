@@ -36,13 +36,18 @@ const [selctedCategory, setSelectedCategory] = useState('');
 const filterByCategory = useTaskStore(state => state.onFilterByCategory);
 const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
 async function handleFilter(category) {
-    setSelectedCategory(category);
-    filterByCategory(category);
+    if(category === ""){
+        fetchActiveTasks();
+    }else{
+        setSelectedCategory(category);
+        filterByCategory(category);
+    }
+
 }
 
 
 const handleChange = async (category) => {
-    category === "" ? fetchActiveTasks : handleFilter(category);
+    category === "" ? fetchActiveTasks() : handleFilter(category);
 }
 
 
@@ -50,7 +55,7 @@ const handleChange = async (category) => {
     return (
         <div className={classes.filtercontainer}>
             <label className={classes.filter} htmlFor="filter">Filter by category:</label>
-            <select onChange={(e) => handleChange(selctedCategory)} value={selctedCategory} className={classes.filter} id="filter" ></select>
+            <select onChange={(e) => handleChange(e.target.value)} value={selctedCategory} className={classes.filter} id="filter" ></select>
         </div>
     );
 }

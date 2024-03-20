@@ -110,7 +110,7 @@ const handleRestore = (e) => {
                                         name="firstName"
                                         value={firstName}
                                         onChange={(e) => setFirstName(e.target.value)}
-                                        readOnly={selectedUser.active ? undefined : "readOnly"}
+                                        readOnly={(loggedRole !== 'Owner' || !selectedUser.active) ? "readOnly" : undefined}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -122,7 +122,7 @@ const handleRestore = (e) => {
                                         name="lastName"
                                         value={lastName}
                                         onChange={(e) => setLastName(e.target.value)}
-                                        readOnly={selectedUser.active ? undefined : "readOnly"}
+                                        readOnly={(loggedRole !== 'Owner' || !selectedUser.active) ? "readOnly" : undefined}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -134,7 +134,7 @@ const handleRestore = (e) => {
                                         name="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        readOnly={selectedUser.active ? undefined : "readOnly"}
+                                        readOnly={(loggedRole !== 'Owner' || !selectedUser.active) ? "readOnly" : undefined}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -157,7 +157,7 @@ const handleRestore = (e) => {
                                         name="contact"
                                         value={contact}
                                         onChange={(e) => setContact(e.target.value)}
-                                        readOnly={selectedUser.active ? undefined : "readOnly"}
+                                        readOnly={(loggedRole !== 'Owner' || !selectedUser.active) ? "readOnly" : undefined}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -169,7 +169,7 @@ const handleRestore = (e) => {
                                         name="userPicture"
                                         value={userPicture}
                                         onChange={(e) => setUserPicture(e.target.value)}
-                                        readOnly={selectedUser.active ? undefined : "readOnly"}
+                                        readOnly={(loggedRole !== 'Owner' || !selectedUser.active) ? "readOnly" : undefined}
                                     />
                                 </div>
                                 <div className={classes.formfields}>
@@ -179,7 +179,7 @@ const handleRestore = (e) => {
                                         name="role"
                                         value={role}
                                         onChange={(e) => setRole(e.target.value)}
-                                        disabled={!selectedUser.active}
+                                        disabled={(loggedRole !== 'Owner' || !selectedUser.active) ? "disabled" : undefined}
                                         
                                     >
                                         <option value="developer">Developer</option>
@@ -191,13 +191,12 @@ const handleRestore = (e) => {
                                     {selectedUser.active?<button onClick={(e) => {e.preventDefault(); handleUpdateUser(); }} type="submit" id="updateUser" value="Submit"  >
                                         Save
                                     </button>: <RestoreButton handleRestore={handleRestore} />}
-                                    <DeleteButton handleDelete={handleDelete} />
-                                   
+                                    {role==='Owner' && <DeleteButton handleDelete={handleDelete} />}
                                 </div>
                             </div>
                         </form>
                         <img className={classes.userPic} id="userPicturePreview" src={userPicture} alt="" />
-                        {loggedRole === 'Owner'?  <DeleteAllTasksButton /> : null}
+                        {loggedRole === 'Owner' &&  <DeleteAllTasksButton /> }
                     </div>
                 </div>
             )}

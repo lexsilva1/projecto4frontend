@@ -1,5 +1,4 @@
-.deleteAllTasksButton button{
-    justify-content: center;
-    width: 200px;
+.deleteAllTasksButton{
+    width: 150px!important;
 
 }

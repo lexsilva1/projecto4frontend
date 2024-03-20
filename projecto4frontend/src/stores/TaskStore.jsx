@@ -20,6 +20,7 @@ const useTaskStore = create(set => ({
         });
         const data = await response.json();
         set({taskCreator: data} );
+        return data;
     },
    
     tasks: [],
@@ -120,7 +121,7 @@ const useTaskStore = create(set => ({
         }
     },
     onFilterByCategory: async (category) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/ByCategory/${category}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/byCategory/${category}`, {
             method: "GET",
             headers: {
                 Accept: "*/*",
@@ -132,7 +133,7 @@ const useTaskStore = create(set => ({
         set({ tasks: data });
     },
     onFilterByUser: async (username) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/ByUser/${username}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/byUser/${username}`, {
             method: "GET",
             headers: {
                 Accept: "*/*",
@@ -153,7 +154,7 @@ const useTaskStore = create(set => ({
             },
         });
         const data = await response.json();
-        setEditedTask( data);
+        return ( data);
     },
     onUpdateTask: async (task) => {
         const response = await fetch("http://localhost:8080/projecto4backend/rest/task/update", {

@@ -35,13 +35,7 @@ const TaskElement = ({ task }) => {
   }
   const navigate = useNavigate();
   const onDoubleClick = async (id) =>{
-    setEditedTaskId(id);
-    setEditedTask(tasks.find(task => task.id === id));
-    await fetchTaskCreator(id);
-    
-    navigate(`/task/${id}`);
-    
-    
+  navigate(`/task/${id}`)
   };
 
   const priorityClass =
@@ -75,15 +69,15 @@ const TaskElement = ({ task }) => {
           </h5>
           <p>{task.description}</p>
         </div>
-        {role !== null &&
-          role !== 'developer' && (
-            <img
-              src={darkCross}
-              className={classes.apagarButton}
-              id="delete-button99"
-              onClick={() => handleDelete(task.id)}
-            />
-          )}
+        {role === 'Owner' || (role === 'ScrumMaster' && task.active) ? (
+          <img
+            src={darkCross}
+            className={classes.apagarButton}
+            id="delete-button99"
+            onClick={() => handleDelete(task.id)}
+          />
+        ) : null}
+
         {role !== null &&
           task.active === false && (
             <img

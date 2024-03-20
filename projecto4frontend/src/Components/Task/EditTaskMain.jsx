@@ -5,74 +5,91 @@ import { useState } from "react";
 import useCategoriesStore from "../../stores/CategoriesStore";
 import useTaskStore from "../../stores/TaskStore";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const EditTaskMain = () => {
+    const { id } = useParams();
+
     const [clickedPriority, setClickedPriority] = useState('');
     const [clickedStatus, setClickedStatus] = useState('');
     const role = sessionStorage.getItem('role');
     const categories = useCategoriesStore(state => state.categories);
     const editedTask = useTaskStore(state => state.editedTask);
+    const setEditedTask = useTaskStore(state => state.setEditedTask);
     const editedTaskId = useTaskStore(state => state.editedTaskId);
+    const fetchTaskById = useTaskStore(state => state.fetchTaskById);
     const taskCreator = useTaskStore(state => state.taskCreator);
-    const [taskTitle, setTaskTitle] = useState(editedTask.title);
-    const [taskDescription, setTaskDescription] = useState(editedTask.description);
-    const [taskStartDate, setTaskStartDate] = useState(editedTask.startDate);
-    const [taskEndDate, setTaskEndDate] = useState(editedTask.endDate);
-    const [taskCategory, setTaskCategory] = useState(editedTask.category);
-    const [taskPriority, setTaskPriority] = useState(editedTask.priority);
-    const [taskStatus, setTaskStatus] = useState(editedTask.status);
+    const setTaskCreator = useTaskStore(state => state.setTaskCreator);
+    const fetchTaskCreator = useTaskStore(state => state.fetchTaskCreator);
+    const [taskTitle, setTaskTitle] = useState('');
+    const [taskDescription, setTaskDescription] = useState('');
+    const [taskStartDate, setTaskStartDate] = useState('');
+    const [taskEndDate, setTaskEndDate] = useState('');
+    const [taskCategory, setTaskCategory] = useState('');
+    const [taskPriority, setTaskPriority] = useState('');
+    const [taskStatus, setTaskStatus] = useState('');
     const onUpdateTask = useTaskStore(state => state.onUpdateTask);
-    
 
 
-    
-useEffect( () => {
+
+const fetchData = async () => {
+    const editedTaskData = await fetchTaskById(id); // Fetch task asynchronously
+    setEditedTask(editedTaskData);  // Set the fetched task to the state
+    const creatorData = await fetchTaskCreator(id); // Fetch task creator asynchronously
+    setTaskCreator(creatorData); // Set the fetched task creator to the state
+    setTaskTitle(editedTaskData.title);
+    setTaskDescription(editedTaskData.description);
+    setTaskStartDate(editedTaskData.startDate);
+    setTaskEndDate(editedTaskData.endDate);
+    setTaskCategory(editedTaskData.category);
     setCategories();
-    setInitialStatus();
-    setInitialPriority();
-    setTaskStartDate(editedTask.startDate);
-    if(editedTask.endDate === '2199-12-31'){
+    setTaskCategory(editedTaskData.category);
+    if (editedTaskData.status === 10) {
+        setClickedStatus(10);
+    } else if (editedTaskData.status === 20) {
+        setClickedStatus(20);
+    } else if (editedTaskData.status === 30) {
+        setClickedStatus(30);
+    }
+    if (editedTaskData.priority === 100) {
+        setClickedPriority(100);
+    } else if (editedTaskData.priority === 200) {
+        setClickedPriority(200);
+    } else if (editedTaskData.priority === 300) {
+        setClickedPriority(300);
+    }
+    setTaskStartDate(editedTaskData.startDate);
+    if(editedTaskData.endDate === '2199-12-31'){
         setTaskEndDate('');
     } else {
-        setTaskEndDate(editedTask.endDate);
+        setTaskEndDate(editedTaskData.endDate);
     }
-    }, []);
+    
+}
 
+
+useEffect(  () => {
+    fetchData();
+
+    }, []);
+console.log(id);
+
+
+ 
 async function setCategories(){
 await useCategoriesStore.getState().actions.fetchCategories(); // Fetch categories asynchronously    
 const select = document.getElementById("categoryEditTask");
 select.innerHTML = ""; // Clear the select options before adding new ones
-const defaultOption = document.createElement("option");
-defaultOption.value = "";
-defaultOption.text = "";
-select.appendChild(defaultOption);
 categories.forEach((category) => {
     const option = document.createElement("option");
     option.value = category.name;
     option.text = category.name;
     select.appendChild(option);
+    
 });
+
 }
 
-const setInitialStatus = () => {
-    if (editedTask.status === 10) {
-        setClickedStatus(10);
-    } else if (editedTask.status === 20) {
-        setClickedStatus(20);
-    } else if (editedTask.status === 30) {
-        setClickedStatus(30);
-    }
-}
-
-const setInitialPriority = () => {
-    if (editedTask.priority === 100) {
-        setClickedPriority(100);
-    } else if (editedTask.priority === 200) {
-        setClickedPriority(200);
-    } else if (editedTask.priority === 300) {
-        setClickedPriority(300);
-    }
-}
 
 const setSelectedStatus = (status) => {
     return () => {
@@ -92,16 +109,17 @@ const setSelectdPriority = (priority) => {
         navigate('/home');
     }
 const handleSaveTask = async () => { 
-    console.log(taskStartDate, taskEndDate)
     if (taskTitle === '' || taskDescription === '' || taskCategory === '' ) {
         document.getElementById('warningMessage3').innerHTML = 'All fields are required';
         return;
-  
-    }else if (taskStartDate > taskEndDate) {
-        console.log(taskStartDate, taskEndDate)
+    }    
+        if (taskStartDate > taskEndDate) {
+           if(taskEndDate !== '') {    
             document.getElementById('warningMessage3').innerHTML = 'Start date must be before end date';
             return;
     }
+}
+
     const task = {
         id: editedTaskId,
         title: taskTitle,
@@ -118,12 +136,15 @@ const handleSaveTask = async () => {
   return (
     <main className={classes.maintask}>
         <div className={classes.detalhesTask}>
+        {taskCreator ? (
             <div className={classes.breadcrumb}>
                 <ul className={classes.breadcrumb}>
-                  <li className={classes.breadcrumb} onClick={handleCancel} id="link-bc"><a className={classes.breadcrumb}>Back</a></li>
-                </ul>
-                <label classname ={classes.taskCreator} id="taskCreator">TASK CREATOR:{taskCreator.name}</label>
+                  <li className={classes.breadcrumb} onClick={handleCancel} id="link-bc">Back</li>
+                  
+                  <li classname ={classes.taskCreator} id="taskCreator">TASK CREATOR:{taskCreator.name}</li>
+                    </ul>
               </div>
+              ) : <p>Loading...</p>}
               <div>
                 <label className={classes.labelEditTask} for="titulo-task">TITLE</label> 
                 <textarea  onChange={(e) => setTaskTitle(e.target.value)} value={taskTitle} className={classes.title} id="titulo-task"></textarea>
@@ -152,7 +173,7 @@ const handleSaveTask = async () => {
                 <div className={classes.taskpriority}>
                     <h4 className={classes.taskH4}>priority</h4>
                     <div className={classes.prioritybuttons}>
-                        <button onClick={setSelectdPriority(100)}  className={`${classes.prioritybutton} ${classes.low} ${clickedPriority===100? classes.selected : ''}`} id="low-button">Low</button>
+                        <button onClick={setSelectdPriority(100)} className={`${classes.prioritybutton} ${classes.low} ${clickedPriority===100? classes.selected : ''}`} id="low-button">Low</button>
                         <button onClick={setSelectdPriority(200)} className={`${classes.prioritybutton} ${classes.medium} ${clickedPriority===200? classes.selected : ''}`}  id="medium-button">Medium</button>
                         <button onClick={setSelectdPriority(300)} className={`${classes.prioritybutton} ${classes.high} ${clickedPriority===300? classes.selected : ''}`} id="high-button">High</button>
                     </div>
@@ -173,7 +194,7 @@ const handleSaveTask = async () => {
                         <select 
                         className={classes.taskDate} 
                         onChange={(e) => setTaskCategory(e.target.value)} 
-                        text={taskCategory} value={taskCategory} 
+                        value={taskCategory} 
                         id="categoryEditTask"
 
                         ></select>

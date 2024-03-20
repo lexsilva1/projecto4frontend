@@ -4,10 +4,14 @@ import DateTime from './DateTime';
 import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import  logout from '../multimedia/logout.png';
+import { useStore } from 'zustand';
+
 
 
 
 const HomeHeader = ({ handleEditProfileIsOpen,updatedPhoto,updatedName }) => {
+
+
 
 const navigate = useNavigate();
 const [photo, setPhoto] = useState('');
@@ -31,9 +35,11 @@ async function userDto() {
     })
     .then((response) => response.json())
     .then((data) => {
+        
         const names = data.name.split(" ");
         setName(names[0]);
         sessionStorage.setItem("role", data.role);
+
         
     });
 }

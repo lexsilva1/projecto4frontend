@@ -6,11 +6,13 @@ const useStore = create((set) => ({
     selectedUser: '',
     isProfilesOpen: false,
     isDeleteSelected: false,
+    loggedUser: '',
 
     setSelected:  () => set((state) => ({ selected: !state.selected })),
     setSelectedUser: (user) => set({selectedUser: user}),
     setIsProfilesOpen: () => set((state) => ({isProfilesOpen: !state.isProfilesOpen})),
     setIsDeleteSelected: () => set((state) => ({isDeleteSelected: !state.isDeleteSelected})),
+    setLoggedUser: (user) => set({loggedUser: user}),
     
     persist: {
         users: [], // the initial state
