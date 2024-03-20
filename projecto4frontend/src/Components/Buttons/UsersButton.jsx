@@ -9,6 +9,8 @@ const setSelected = useStore(state => state.setSelected);
 const selected = useStore(state => state.selected);
 const setCategoriesOpen = useCategoriesStore(state => state.setCategoriesOpen);
 const categoriesisOpen = useCategoriesStore(state => state.categoriesisOpen);
+const isDeleteSelected = useStore(state => state.isDeleteSelected);
+const setIsDeleteSelected = useStore(state => state.setIsDeleteSelected);
 const users = useStore(state => state.users);
 const setUsers = useStore(state => state.setUsers);
 
@@ -16,9 +18,7 @@ function handleclick() {
     setSelected();
     categoriesisOpen ? setCategoriesOpen() : '';
     useStore.getState().actions.fetchUsers();
-    console.log("selected", selected);
-    console.log("categoriesisOpen", categoriesisOpen);
-
+    
 }
 
     return (

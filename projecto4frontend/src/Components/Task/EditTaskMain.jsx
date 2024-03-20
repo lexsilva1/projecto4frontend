@@ -78,16 +78,6 @@ console.log(id);
  
 async function setCategories(){
 await useCategoriesStore.getState().actions.fetchCategories(); // Fetch categories asynchronously    
-const select = document.getElementById("categoryEditTask");
-select.innerHTML = ""; // Clear the select options before adding new ones
-categories.forEach((category) => {
-    const option = document.createElement("option");
-    option.value = category.name;
-    option.text = category.name;
-    select.appendChild(option);
-    
-});
-
 }
 
 
@@ -265,19 +255,26 @@ const handleSaveTask = async () => {
                         placeholder="End-date"
                         disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
                          />
-                            
-                    </div>
+                        </div>
+                        {categories && (
                     <div>
                         <label className={classes.labelEditTask}
                          for="category">CATEGORY</label>
-                        <select 
-                        className={classes.taskDate} 
-                        onChange={(e) => setTaskCategory(e.target.value)} 
-                        value={taskCategory} 
-                        id="categoryEditTask"
-                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
-                        ></select>
+                       {categories && <select 
+                            className={classes.taskDate} 
+                            onChange={(e) => setTaskCategory(e.target.value)} 
+                            value={taskCategory} 
+                            id="categoryEditTask"
+                            disabled={taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                        >
+                            {...categories.map((category) => (
+                                <option value={category.name} key={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>}
                       </div>
+                        )}
                 </div>
             </div>
         </div>

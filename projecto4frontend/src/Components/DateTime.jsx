@@ -8,7 +8,7 @@ const DateTime = () => {
         // Update the current time every second
         const intervalId = setInterval(() => {
             setCurrentTime(new Date());
-        }, 1000);
+        }, 60000);
 
         // Clear the interval on component unmount
         return () => clearInterval(intervalId);
@@ -20,7 +20,7 @@ const DateTime = () => {
     };
 
     const formatTime = (date) => {
-        const options = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        const options = { hour: 'numeric', minute: 'numeric'};
         return date.toLocaleTimeString('en-US', options);
     };
 

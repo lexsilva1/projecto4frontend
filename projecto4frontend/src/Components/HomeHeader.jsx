@@ -5,11 +5,16 @@ import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import  logout from '../multimedia/logout.png';
 import { useStore } from 'zustand';
+import useTaskStore from '../stores/TaskStore';
 
 
 
 
 const HomeHeader = ({ handleEditProfileIsOpen,updatedPhoto,updatedName }) => {
+const username = sessionStorage.getItem("username");
+const onFilterByUser = useTaskStore(state => state.onFilterByUser);
+const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
+const [mytasks, setMyTasks] = useState(false);
 
 
 
@@ -76,12 +81,21 @@ async function userPicture() {
     .then((response) => response.text())
     .then((data) => setPhoto(data));
 }
+ async function handleMyTasks (username) {
+    if (!mytasks) {
+        await onFilterByUser(username);
+        setMyTasks(!mytasks);
+    } else {
+        await fetchActiveTasks();
+        setMyTasks(!mytasks);
+    }
+}
 
         return (
             <header>
                 <h1>Welcome to Scrum</h1>
                 <DateTime />
-                    <label className={classes.logout}>My Tasks</label>
+                    <label onClick={() => handleMyTasks(username)}  className={classes.logout} >{mytasks ? 'All Tasks':'My Tasks'}</label>
                     <img id='profileImageHome' className={classes.profileImageHome} src={photo} alt="Avatar" />
                     <label className={classes.logout} onClick={handleEditProfileIsOpen}>{name}</label>
                     <button className={classes.logout} onClick={logout}>
