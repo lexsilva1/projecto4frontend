@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 
 const EditTaskMain = () => {
     const { id } = useParams();
-
+    const username= sessionStorage.getItem('username');
     const [clickedPriority, setClickedPriority] = useState('');
     const [clickedStatus, setClickedStatus] = useState('');
     const role = sessionStorage.getItem('role');
@@ -162,47 +162,109 @@ const handleSaveTask = async () => {
                     </ul>
               </div>
               ) : <p>Loading...</p>}
+               {taskCreator ? (
               <div>
                 <label className={classes.labelEditTask} for="titulo-task">TITLE</label> 
-                <textarea  onChange={(e) => setTaskTitle(e.target.value)} value={taskTitle} className={classes.title} id="titulo-task"></textarea>
+                <textarea  
+                onChange={(e) => setTaskTitle(e.target.value)} 
+                value={taskTitle} 
+                className={classes.title} 
+                id="titulo-task"
+               readOnly = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''} 
+                ></textarea>
             </div>
+            ) : <p>Loading...</p>}
+            {taskCreator ? (
             <div>
                 <label className={classes.labelEditTask} htmlFor="descricao-task">DESCRIPTION</label> 
-                <textarea onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription} className={classes.description} id="descricao-task"></textarea>
+                <textarea onChange={(e) => setTaskDescription(e.target.value)} 
+                value={taskDescription} 
+                className={classes.description} 
+                id="descricao-task"
+                readOnly = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                ></textarea>
             </div>
-           
+            ) : <p>Loading...</p>}
             <p className={classes.warningMessage3} id="warningMessage3"></p>
+            {taskCreator ? (
             <div className={classes.tasksave}>
                 <button onClick={handleSaveTask}  id="save-button">Save</button>
                 <button onClick={handleCancel}  id="cancel-button">Cancel</button>
             </div>
+            ) : <p>Loading...</p>}
         </div>
+        {taskCreator ? (
         <div className={classes.taskbuttons}>
             <div className={classes.statusandpriority}>
                 <div class="task-status">
                     <h4 className={classes.taskH4}>status</h4>
                     <div className={classes.statusbuttons}>
-                        <button onClick={setSelectedStatus(10)} className={`${classes.statusbutton} ${classes.todo} ${clickedStatus===10? classes.selected : ''}`} id="todo-button">To do</button>
-                        <button onClick={setSelectedStatus(20)} className={`${classes.statusbutton} ${classes.doing} ${clickedStatus===20? classes.selected : ''}`} id="doing-button">Doing</button>
-                        <button onClick={setSelectedStatus(30)} className={`${classes.statusbutton} ${classes.done} ${clickedStatus===30? classes.selected : ''}`} id="done-button">Done</button>
+                        <button 
+                        onClick={setSelectedStatus(10)} 
+                        className={`${classes.statusbutton} ${classes.todo} ${clickedStatus===10? classes.selected : ''}`} 
+                        id="todo-button"
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                        >To do</button>
+                        <button 
+                        onClick={setSelectedStatus(20)} 
+                        className={`${classes.statusbutton} ${classes.doing} ${clickedStatus===20? classes.selected : ''}`} 
+                        id="doing-button"
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                        >Doing</button>
+                        <button 
+                        onClick={setSelectedStatus(30)} 
+                        className={`${classes.statusbutton} ${classes.done} ${clickedStatus===30? classes.selected : ''}`} 
+                        id="done-button"
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                        >Done</button>
                     </div>
                 </div>        
                 <div className={classes.taskpriority}>
                     <h4 className={classes.taskH4}>priority</h4>
                     <div className={classes.prioritybuttons}>
-                        <button onClick={setSelectdPriority(100)} className={`${classes.prioritybutton} ${classes.low} ${clickedPriority===100? classes.selected : ''}`} id="low-button">Low</button>
-                        <button onClick={setSelectdPriority(200)} className={`${classes.prioritybutton} ${classes.medium} ${clickedPriority===200? classes.selected : ''}`}  id="medium-button">Medium</button>
-                        <button onClick={setSelectdPriority(300)} className={`${classes.prioritybutton} ${classes.high} ${clickedPriority===300? classes.selected : ''}`} id="high-button">High</button>
+                        <button 
+                        onClick={setSelectdPriority(100)} 
+                        className={`${classes.prioritybutton} ${classes.low} ${clickedPriority===100? classes.selected : ''}`} 
+                        id="low-button"
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                        >Low</button>
+                        <button 
+                        onClick={setSelectdPriority(200)} 
+                        className={`${classes.prioritybutton} ${classes.medium} ${clickedPriority===200? classes.selected : ''}`}  
+                        id="medium-button"
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                        >Medium</button>
+                        <button 
+                        onClick={setSelectdPriority(300)} 
+                        className={`${classes.prioritybutton} ${classes.high} ${clickedPriority===300? classes.selected : ''}`} 
+                        id="high-button"
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                        >High</button>
                     </div>
                 </div>
                 <div className={classes.taskDate} id="taskDate">
                     <div>
                         <label className={`${classes.labelEditTask} ${classes.taskDate}`} for="startdate">INITIAL DATE</label>
-                        <input onChange={(e) => setTaskStartDate(e.target.value)} value={taskStartDate} className={`${classes.dateinput} ${classes.taskDate}`} id ="startdateEditTask" type ="date" placeholder="Start-date" />
+                        <input 
+                        onChange={(e) => setTaskStartDate(e.target.value)} 
+                        value={taskStartDate} className={`${classes.dateinput} ${classes.taskDate}`} 
+                        id ="startdateEditTask" 
+                        type ="date" 
+                        placeholder="Start-date"
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                         />
                     </div>
                     <div>
                         <label className={`${classes.labelEditTask} ${classes.taskDate}`} for="enddate">FINAL DATE</label>
-                        <input onChange={(e) => e.target.value === '' ? setTaskEndDate(editedTask.endDate):setTaskEndDate(e.target.value)} value={taskEndDate } className={`${classes.dateinput} ${classes.taskDate}`} id ="enddateEditTask" type ="date" placeholder="End-date" />
+                        <input 
+                        onChange={(e) => e.target.value === '' ? setTaskEndDate(editedTask.endDate):setTaskEndDate(e.target.value)} 
+                        value={taskEndDate } 
+                        className={`${classes.dateinput} ${classes.taskDate}`} 
+                        id ="enddateEditTask" 
+                        type ="date" 
+                        placeholder="End-date"
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
+                         />
                             
                     </div>
                     <div>
@@ -213,12 +275,13 @@ const handleSaveTask = async () => {
                         onChange={(e) => setTaskCategory(e.target.value)} 
                         value={taskCategory} 
                         id="categoryEditTask"
-
+                        disabled = {taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
                         ></select>
                       </div>
                 </div>
             </div>
         </div>
+        ) : <p>Loading...</p>}
     </main>
     );
 }

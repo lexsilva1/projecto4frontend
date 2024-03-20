@@ -39,6 +39,7 @@ async function userDto() {
         const names = data.name.split(" ");
         setName(names[0]);
         sessionStorage.setItem("role", data.role);
+        sessionStorage.setItem("username", data.username);  
 
         
     });
