@@ -7,10 +7,6 @@ import { useEffect, useState } from 'react';
 
 const CategoriesTable = () => {
    const categories = useCategoriesStore(state => state.categories);
-    useEffect(() => {
-        useCategoriesStore.getState().actions.fetchCategories();
-    }
-    , []);
 
 
 

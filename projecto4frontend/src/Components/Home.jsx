@@ -61,7 +61,7 @@ const Home = () => {
                 <div className={`${role === 'developer' ? classes.devfilters : classes.filters} `}>
                 {(categoriesisOpen||selected) || role=== 'developer'?null:<FilterCategories />}
                 {(categoriesisOpen||selected) || role === 'developer' ?null:<FilterUsers />}
-                {(role !== 'developer' && (role==='ScrumMaster' && !selected)) || role==='Owner' ?<DeletedButton /> :null}
+                {categoriesisOpen ? null :(role !== 'developer' && (role==='ScrumMaster' && !selected)) || role==='Owner' ?<DeletedButton /> :null}
                 {role === 'developer' ? null :<UsersButton />}
                 {role === 'Owner' ? <CategoriesButton /> : null}
                 </div>

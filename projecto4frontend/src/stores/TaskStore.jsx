@@ -1,4 +1,8 @@
 import { create} from "zustand";
+import infoToast from '../Components/Toasts/Info'
+import errorToast from '../Components/Toasts/Error'
+import successToast from '../Components/Toasts/Success'
+import warningToast from '../Components/Toasts/Warning'
 
 const useTaskStore = create(set => ({
     editedTask: null,
@@ -74,6 +78,7 @@ const useTaskStore = create(set => ({
             },
         });
         if(response.status === 200){
+           successToast(await response.text());
         }
     },
     onRestoreTask: async (id) => {
@@ -86,7 +91,7 @@ const useTaskStore = create(set => ({
             },
         });
         if(response.status === 200){
-            
+            successToast(await response.text());
         }
     },
     onAddTask: async (task) => {
@@ -100,6 +105,8 @@ const useTaskStore = create(set => ({
             body: JSON.stringify(task),
         });
         if(response.status === 200){
+            console.log(response)
+            successToast(await response.text());
         }
     },
     onUpdateStatus: async (id, status) => {
@@ -118,6 +125,7 @@ const useTaskStore = create(set => ({
             body: JSON.stringify(taskStatus),
         });
         if(response.status === 200){
+            
         }
     },
     onFilterByCategory: async (category) => {
@@ -167,6 +175,7 @@ const useTaskStore = create(set => ({
             body: JSON.stringify(task),
         });
         if(response.status === 200){
+            successToast(await response.text());
         }
     },
     onDeleteAllUsersTasks: async (username) => {
@@ -179,7 +188,7 @@ const useTaskStore = create(set => ({
             },
         });
         if(response.status === 200){
-            console.log('deleted');
+            successToast(await response.text());
         }
     }
 

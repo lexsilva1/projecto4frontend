@@ -4,8 +4,9 @@ import DateTime from './DateTime';
 import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import  logout from '../multimedia/logout.png';
-import { useStore } from 'zustand';
 import useTaskStore from '../stores/TaskStore';
+import useStore from '../stores/Userstore';
+import useCategoriesStore from '../stores/CategoriesStore';
 
 
 
@@ -14,7 +15,13 @@ const HomeHeader = ({ handleEditProfileIsOpen,updatedPhoto,updatedName }) => {
 const username = sessionStorage.getItem("username");
 const onFilterByUser = useTaskStore(state => state.onFilterByUser);
 const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
+const isCategoresOpen = useCategoriesStore(state => state.isCategoresOpen);
+const select = useStore(state => state.select);
+const setIsCategoresOpen = useCategoriesStore(state => state.setIsCategoresOpen);
+const setSelected = useStore(state => state.setSelected);
 const [mytasks, setMyTasks] = useState(false);
+const resetState = useStore(state => state.resetState);
+const resetCategoriesState = useCategoriesStore(state => state.resetCategoriesState);
 
 
 
@@ -62,10 +69,19 @@ async function logout() {
   }).then(function (response) {
 
     if (response.status === 200) {
-        sessionStorage.removeItem("token");
+        sessionStorage.clear();
         navigate('/');
         }
     });
+}
+const handleLogout = async () => {
+    await setlogout();
+    await logout();
+};
+
+async function setlogout() {
+    resetState();
+    resetCategoriesState();
 }
 
 
@@ -98,7 +114,7 @@ async function userPicture() {
                     <label onClick={() => handleMyTasks(username)}  className={classes.logout} >{mytasks ? 'All Tasks':'My Tasks'}</label>
                     <img id='profileImageHome' className={classes.profileImageHome} src={photo} alt="Avatar" />
                     <label className={classes.logout} onClick={handleEditProfileIsOpen}>{name}</label>
-                    <button className={classes.logout} onClick={logout}>
+                    <button className={classes.logout} onClick={handleLogout}>
                     <img src={logout} alt="Logout Icon" />
                     Logout
                 </button>

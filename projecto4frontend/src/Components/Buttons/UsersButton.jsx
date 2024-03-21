@@ -15,7 +15,7 @@ const users = useStore(state => state.users);
 const setUsers = useStore(state => state.setUsers);
 
 function handleclick() {
-    setSelected();
+    setSelected(true);
     categoriesisOpen ? setCategoriesOpen() : '';
     useStore.getState().actions.fetchUsers();
     

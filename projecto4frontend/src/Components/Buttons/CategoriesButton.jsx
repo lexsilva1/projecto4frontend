@@ -13,7 +13,7 @@ const CategoriesButton = () => {
     const setIsDeleteSelected = usestore(state => state.setIsDeleteSelected);
 
     const handleCategoriesIsOpen = () => {
-        setcategoriesisOpen();
+        setcategoriesisOpen(true);
         selected ? setSelected(false) : '';
         isDeleteselected ? setIsDeleteSelected(false) : '';
     }

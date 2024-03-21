@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import classes from './TaskCreator.module.css';
 import useTaskStore from '../stores/TaskStore';
 import useCategoriesStore from '../stores/CategoriesStore';
+import { toast, Bounce } from 'react-toastify';
+import infoToast from './Toasts/Info';
 
 
 
@@ -52,7 +54,7 @@ async function handleAddTask(e) {
     e.preventDefault();
     console.log('title', title);
     if (title === '' || description === '' || category === '' ) {
-        document.getElementById('warningMessage2').innerHTML = 'All fields are required';
+        infoToast('Title, description and category are required');
     } else {
         if (endDate === '') {
             console.log('end date', endDate);
@@ -72,7 +74,7 @@ async function handleAddTask(e) {
 
     } else if (startDate > endDate) {
         console.log('end date', endDate);
-        document.getElementById('warningMessage2').innerHTML = 'Start date must be before end date';
+        infoToast('End date must be greater than start date');
         
     } else {
         const task = {

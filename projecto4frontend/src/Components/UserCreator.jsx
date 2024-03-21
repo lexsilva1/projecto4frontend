@@ -3,6 +3,10 @@ import classes from "./UserCreator.module.css";
 import { useState } from "react";
 import userPicture from '../multimedia/profile.png';
 import UserElement from "./Users/UserElement";
+import warningToast from "./Toasts/Warning";
+import successToast from "./Toasts/Success";
+import errorToast from "./Toasts/Error";
+import infoToast from "./Toasts/Info";
 
 const UserCreator = () => {
 
@@ -31,6 +35,10 @@ const UserCreator = () => {
 
         async function handleRegister(e) {
             e.preventDefault();
+            if(username === '' || password === '' || email === '' || firstname === '' || lastname === '' || contactNumber === '' || userPhoto === '' || role === ''){
+                warningToast('All fields are required');
+                return;
+            }
             const user = { // Fix: Added missing curly braces to define the user object
                 username: username,
                 password: password,

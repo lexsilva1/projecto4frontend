@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classes from './CategoryCreator.module.css';
 import useCategoriesStore from '../stores/CategoriesStore';
 import { useEffect } from 'react';
+import {toast , Bounce} from 'react-toastify';
 
 
 
@@ -36,16 +37,41 @@ const response = await fetch ("http://localhost:8080/projecto4backend/rest/task/
         body: JSON.stringify(newCategory),
     });
     if(response.status === 201){
-        console.log("Category added");
+        console.log(response)
+        toast.success('Category created',{
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+            });
+        }else if(response.status === 409){
+            
+            toast.error(await response.text(),{
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+                });
+        }
     }
-}
+
 async function updateCategory () {
-    console.log(category2);
+
     const newCategory = {
         name: category2,
         id: category2id,
     }
-console.log(newCategory);
+
 const response = await fetch ("http://localhost:8080/projecto4backend/rest/task/updateCategory"
 
     , {
@@ -58,7 +84,31 @@ const response = await fetch ("http://localhost:8080/projecto4backend/rest/task/
         body: JSON.stringify(newCategory),
     });
     if(response.status === 200){
-        console.log("Category updated");
+        console.log(response)
+        toast.success('Category updated',{
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+            });
+    } else if(response.status === 409){
+        console.log(response)
+        toast.error(response.statusText,{
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+            });
     }
 }
 

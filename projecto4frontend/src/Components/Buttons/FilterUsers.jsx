@@ -14,6 +14,9 @@ const FilterUsers = () => {
 
 
     const handleChange = async (username) => {
+        if(username === ""){
+            await fetchActiveTasks();
+        }
         await onFilterByUser(username);
     }
 
@@ -24,7 +27,7 @@ const FilterUsers = () => {
             <label className={classes.filter} htmlFor="filter">Filter by user:</label>
             <select onChange={(e) => handleChange(e.target.value)}  className={classes.filter} id="userfilter">
                 <option value="">All</option>
-                {users.map(user => <option key={user.username} value={user.username}>{user.name}</option>)}
+                {users && users.map(user => <option key={user.username} value={user.username}>{user.name}</option>)}
             </select>
         </div>
     );

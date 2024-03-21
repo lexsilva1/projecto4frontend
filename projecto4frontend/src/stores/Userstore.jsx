@@ -1,6 +1,16 @@
 import {create} from 'zustand'
 import {persist, createJSONStorage} from 'zustand/middleware'
 
+
+const initialState = {
+    selected: false,
+    selectedUser: '',
+    isProfilesOpen: false,
+    isDeleteSelected: false,
+    loggedUser: '',
+    users: [],
+}
+
 const useStore = create((set) => ({
     selected: false,
     selectedUser: '',
@@ -13,6 +23,7 @@ const useStore = create((set) => ({
     setIsProfilesOpen: () => set((state) => ({isProfilesOpen: !state.isProfilesOpen})),
     setIsDeleteSelected: () => set((state) => ({isDeleteSelected: !state.isDeleteSelected})),
     setLoggedUser: (user) => set({loggedUser: user}),
+    resetState  : () => set(initialState),
     
     persist: {
         users: [], // the initial state
