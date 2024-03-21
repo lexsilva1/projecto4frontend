@@ -76,7 +76,7 @@
 .header{
   display:relative;
   font-weight: bold;
-  color: var(--green3)
+  color: var(--white)
 }
 .items{
 color:var(--white);

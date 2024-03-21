@@ -2,6 +2,9 @@ import classes from './CategoriesTable.module.css';
 import useCategoriesStore from '../../stores/CategoriesStore';
 import darkCross from '../../multimedia/dark-cross-01.png';
 import { useEffect, useState } from 'react';
+import Success from '../Toasts/Success';
+import Warning from '../Toasts/Warning';
+import Error from '../Toasts/Error';
 
 
 
@@ -19,9 +22,15 @@ const handleDelete = async (category) => {
             Accept: "*/*",
             "Content-Type": "application/json",
             token: sessionStorage.getItem("token"),
-        },
-        
+        }
     });
+    if (response.status === 200) {
+        Success(await response.text());
+    }else if(response.status === 409){
+        Warning(await response.text());
+    }else if(response.status === 401){
+        Error(await response.text());
+    }
 }
 
     return (

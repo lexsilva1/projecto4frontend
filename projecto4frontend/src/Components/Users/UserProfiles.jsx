@@ -5,6 +5,13 @@ import DeleteButton from '../Buttons/DeleteButton';
 import RestoreButton from '../Buttons/RestoreButton';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
 import DeleteAllTasksButton from '../Buttons/DeleteAllTasksButton';
+import Warning from '../Toasts/Warning';
+import Success from '../Toasts/Success';
+import Error from '../Toasts/Error';
+
+
+
+
 const UserProfiles = () => {
     const loggedRole = sessionStorage.getItem('role');
     const isProfilesOpen = useStore(state => state.isProfilesOpen);
@@ -34,10 +41,17 @@ const UserProfiles = () => {
                 token: sessionStorage.getItem("token"),
             },
         });
-        useStore.getState().actions.fetchDeletedUsers();
+        if(Response.status === 200){
+            Success(await Response.text());
+        await useStore.getState().actions.fetchDeletedUsers();
+    } else if(Response.status === 403){
+        Warning(await Response.text());
+    }else if(Response.status === 400){
+        Error(await Response.text());
+    }
     }
     async function restoreUSer(username){
-        await fetch(`http://localhost:8080/projecto4backend/rest/user/restore/${username}`, {
+       const Response =  await fetch(`http://localhost:8080/projecto4backend/rest/user/restore/${username}`, {
             method: "POST",
             headers: {
                 Accept: "*/*",
@@ -45,9 +59,16 @@ const UserProfiles = () => {
                 token: sessionStorage.getItem("token"),
             },
         });
+        if(Response.status === 200){
+            
+            Success(await Response.text());
         useStore.getState().actions.fetchUsers();
+    }else if(Response.status === 409){
+        Warning(await Response.text());
+    }else if(Response.status === 401){
+        Error(await Response.text());
     }
-
+    }
 const handleDelete = (e) => {
         e.preventDefault();
         setIsDeleteSelected();
@@ -83,11 +104,17 @@ const handleRestore = (e) => {
             },
             body: JSON.stringify(user),
         });
+        if(Response.status === 200){
+            
+            Success(await Response.text());
         setSelectedUser('');
         setIsProfilesOpen();
         useStore.getState().actions.fetchUsers();
 
+    }else{
+        Error(await Response.text());
     }
+}
     return (
         <div>
             {isProfilesOpen && (
