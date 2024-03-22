@@ -95,7 +95,7 @@ const handleRestore = (e) => {
             role: role,
             username: selectedUser.username,
         };
-        await fetch("http://localhost:8080/projecto4backend/rest/user/update", {
+        const Response = await fetch("http://localhost:8080/projecto4backend/rest/user/update", {
             method: "PUT",
             headers: {
                 Accept: "*/*",

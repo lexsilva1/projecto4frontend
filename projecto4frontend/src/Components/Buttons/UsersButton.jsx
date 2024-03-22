@@ -18,6 +18,7 @@ function handleclick() {
     setSelected(true);
     categoriesisOpen ? setCategoriesOpen() : '';
     useStore.getState().actions.fetchUsers();
+    isDeleteSelected ? setIsDeleteSelected() : '';
     
 }
 

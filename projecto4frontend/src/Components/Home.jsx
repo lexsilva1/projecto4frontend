@@ -33,6 +33,7 @@ const Home = () => {
     const tasks = useTaskStore(state => state.tasks);
     const isProfilesOpen = useStore(state => state.isProfilesOpen);
     const categoriesisOpen = useCategoriesStore(state => state.categoriesisOpen);
+    const isDeleteSelected = useStore(state => state.isDeleteSelected);
     
     
 
@@ -59,8 +60,8 @@ const Home = () => {
             {categoriesisOpen?<CategoryCreator />:(selected  ? (role === 'Owner' ? <UserCreator /> : null) :<TaskCreator />)}
             <main>
                 <div className={`${role === 'developer' ? classes.devfilters : classes.filters} `}>
-                {(categoriesisOpen||selected) || role=== 'developer'?null:<FilterCategories />}
-                {(categoriesisOpen||selected) || role === 'developer' ?null:<FilterUsers />}
+                {(categoriesisOpen||selected || isDeleteSelected) || role=== 'developer'?null:<FilterCategories />}
+                {(categoriesisOpen||selected || isDeleteSelected) || role === 'developer' ?null:<FilterUsers />}
                 {categoriesisOpen ? null :(role !== 'developer' && (role==='ScrumMaster' && !selected)) || role==='Owner' ?<DeletedButton /> :null}
                 {role === 'developer' ? null :<UsersButton />}
                 {role === 'Owner' ? <CategoriesButton /> : null}

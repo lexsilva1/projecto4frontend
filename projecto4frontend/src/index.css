@@ -81,4 +81,10 @@ select {
   font-size: 15px;
   color: var(--black);  
 }
+thead {
+  background-color: var(--green3);
+  color: var(--light-grey);
+  height: 3rem;
+  border-bottom: 3px solid var(--white);
+}
 

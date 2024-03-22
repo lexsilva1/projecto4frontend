@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
 import classes from './Aside.module.css';
 import userPicture from '../multimedia/profile.png';
+import Error from './Toasts/Error';
+import Success from './Toasts/Success';
+import Warning from './Toasts/Warning';
+
 
 const Aside = ({isOpen}) => {
     const [userPic, setUserPic] = useState(userPicture);
+    function clearInputs(){
+        setUsername('');
+        setPassword('');
+        setEmail('');
+        setFirstname('');
+        setLastname('');
+        setContactNumber('');
+        setUserPic(userPicture);
+    }
 
     function handleUserPic(e){
         if(e.target.value === ''){
@@ -23,6 +36,23 @@ const Aside = ({isOpen}) => {
         const [userPhoto, setUserPhoto] = useState('');
 
         async function handleRegister(e) {
+            if(username === '' || password === '' || email === '' || firstname === '' || lastname === '' || contactNumber === ''){
+                Error('Please fill all the fields');
+                return;
+            }
+            if(username.length < 4){
+                Warning('Username must be at least 4 characters long');
+                return;
+            }
+            if(password.length < 4){
+                Warning('Password must be at least 8 characters long');
+                return;
+            }
+            if(contactNumber.length < 9){
+                Warning('Contact number must be at least 10 characters long');
+                return;
+            }
+        
             e.preventDefault();
             const user = { // Fix: Added missing curly braces to define the user object
                 username: username,
@@ -39,8 +69,9 @@ const Aside = ({isOpen}) => {
                 },
                 body: JSON.stringify(user)
             });
-            const data = await response.text();
-            console.log(data);
+            Success( await response.text());
+            document.querySelector('form').reset(); 
+            clearInputs();
         }
 
     
