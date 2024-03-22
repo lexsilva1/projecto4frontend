@@ -34,7 +34,7 @@ const handleDelete = async (category) => {
 }
 
     return (
-        <div>
+        <div data-testid='CategoriesTable'>
         <h2 className={classes.title}>Categories</h2>
         <div className={classes.panel}>
          <table className={classes.table}>

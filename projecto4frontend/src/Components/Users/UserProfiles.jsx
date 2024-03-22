@@ -19,17 +19,17 @@ const UserProfiles = () => {
 
     const selectedUser = useStore(state => state.selectedUser);
     const setSelectedUser = useStore(state => state.setSelectedUser);
-    const names= selectedUser.name.split(" ");
+    const names= selectedUser&& selectedUser.name? selectedUser.name.split(" ") : ['',''];
     const isDeleteSelected = useStore(state => state.isDeleteSelected);
     const setIsDeleteSelected = useStore(state => state.setIsDeleteSelected);
 
 
     const [firstName, setFirstName] = useState(names[0]);
     const [lastName, setLastName] = useState(names[1]);
-    const [email, setEmail] = useState(selectedUser.email);
-    const [contact, setContact] = useState(selectedUser.contactNumber);
-    const [userPicture, setUserPicture] = useState(selectedUser.userPhoto);
-    const [role, setRole] = useState(selectedUser.role);
+    const [email, setEmail] = useState(selectedUser ? selectedUser.email :'');
+    const [contact, setContact] = useState(selectedUser ? selectedUser.contactNumber :'');
+    const [userPicture, setUserPicture] = useState(selectedUser ? selectedUser.userPhoto :'');
+    const [role, setRole] = useState(selectedUser ? selectedUser.role :'');
 
     async function deleteUser(username) {
 
