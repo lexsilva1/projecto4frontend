@@ -22,6 +22,8 @@ const setSelected = useStore(state => state.setSelected);
 const [mytasks, setMyTasks] = useState(false);
 const resetState = useStore(state => state.resetState);
 const resetCategoriesState = useCategoriesStore(state => state.resetCategoriesState);
+const isDeleteSelected = useStore(state => state.isDeleteSelected);
+const setIsDeleteSelected = useStore(state => state.setIsDeleteSelected);
 
 
 
@@ -98,12 +100,15 @@ async function userPicture() {
     .then((data) => setPhoto(data));
 }
  async function handleMyTasks (username) {
+
     if (!mytasks) {
         await onFilterByUser(username);
         setMyTasks(!mytasks);
+        
     } else {
         await fetchActiveTasks();
         setMyTasks(!mytasks);
+        
     }
 }
 

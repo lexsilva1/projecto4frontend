@@ -13,17 +13,14 @@ const [category2, setcategory2] = useState('');
 const [category2id, setcategory2id] = useState('');
 const categories = useCategoriesStore(state => state.categories);
 const setCategories = useCategoriesStore(state => state.setCategories);
-useEffect(() => {
-useCategoriesStore.getState().actions.fetchCategories();
-}, [categories]);
 
 async function addCategory () {
-    console.log(category);
+    
     const newCategory = {
 
         name: category,
     }
-console.log(newCategory);
+
 
 const response = await fetch ("http://localhost:8080/projecto4backend/rest/task/createCategory"
 
@@ -49,6 +46,8 @@ const response = await fetch ("http://localhost:8080/projecto4backend/rest/task/
             theme: "colored",
             transition: Bounce,
             });
+            setCategories(useCategoriesStore.getState().actions.fetchCategories());
+            
         }else if(response.status === 409){
             
             toast.error(await response.text(),{
@@ -96,6 +95,7 @@ const response = await fetch ("http://localhost:8080/projecto4backend/rest/task/
             theme: "colored",
             transition: Bounce,
             });
+            setCategories(useCategoriesStore.getState().actions.fetchCategories());
     } else if(response.status === 409){
         console.log(response)
         toast.error(response.statusText,{

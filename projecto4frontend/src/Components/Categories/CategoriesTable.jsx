@@ -10,6 +10,7 @@ import Error from '../Toasts/Error';
 
 const CategoriesTable = () => {
    const categories = useCategoriesStore(state => state.categories);
+   const setCategories = useCategoriesStore(state => state.setCategories);
 
 
 
@@ -26,6 +27,7 @@ const handleDelete = async (category) => {
     });
     if (response.status === 200) {
         Success(await response.text());
+        setCategories(useCategoriesStore.getState().actions.fetchCategories());
     }else if(response.status === 409){
         Warning(await response.text());
     }else if(response.status === 401){
