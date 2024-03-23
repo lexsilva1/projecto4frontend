@@ -39,7 +39,7 @@ useEffect(() => {
 
 
 async function userDto() {
-    await fetch("http://localhost:8080/projecto4backend/rest/user/myUserDto", {
+    await fetch("http://localhost:8080/projecto4backend/rest/users/myUserDto", {
         method: "GET",
         headers: {
             Accept: "*/*",
@@ -61,7 +61,7 @@ async function userDto() {
 
     
 async function logout() {
-    await fetch("http://localhost:8080/projecto4backend/rest/user/logout", {
+    await fetch("http://localhost:8080/projecto4backend/rest/users/logout", {
     method: "GET",
     headers: {
       Accept: "*/*",
@@ -88,7 +88,7 @@ async function setlogout() {
 
 
 async function userPicture() {
-    await fetch("http://localhost:8080/projecto4backend/rest/user/photo", {
+    await fetch("http://localhost:8080/projecto4backend/rest/users/photo", {
         method: "GET",
         headers: {
             Accept: "*/*",

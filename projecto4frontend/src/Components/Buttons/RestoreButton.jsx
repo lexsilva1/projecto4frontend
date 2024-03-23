@@ -7,7 +7,7 @@ import useCategoriesStore from "../../stores/CategoriesStore";
 const RestoreButton = ({handleRestore}) => {
 
 async function restoreUSer(username){
-    await fetch(`http://localhost:8080/projecto4backend/rest/user/restore/${username}`, {
+    await fetch(`http://localhost:8080/projecto4backend/rest/users/restore/${username}`, {
         method: "POST",
         headers: {
             Accept: "*/*",

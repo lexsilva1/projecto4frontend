@@ -19,7 +19,7 @@ const EditMyProfileModal = ({ EditProfileIsOpen, handleEditProfileIsOpen, onUpda
 
     useEffect(() => {
         async function userDto() {
-            const response = await fetch('http://localhost:8080/projecto4backend/rest/user/myUserDto', {
+            const response = await fetch('http://localhost:8080/projecto4backend/rest/users/myUserDto', {
                 method: 'GET',
                 headers: {
                     Accept: '*/*',
@@ -72,7 +72,7 @@ const EditMyProfileModal = ({ EditProfileIsOpen, handleEditProfileIsOpen, onUpda
                 password: password,
                 newPassword: newPassword,
             };
-            const response = await fetch('http://localhost:8080/projecto4backend/rest/user/updatePassword', {
+            const response = await fetch('http://localhost:8080/projecto4backend/rest/users/updatePassword', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const EditMyProfileModal = ({ EditProfileIsOpen, handleEditProfileIsOpen, onUpda
             contactNumber: contact,
             userPhoto: userPicture,
         };
-        const response = await fetch('http://localhost:8080/projecto4backend/rest/user/update', {
+        const response = await fetch('http://localhost:8080/projecto4backend/rest/users/update', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

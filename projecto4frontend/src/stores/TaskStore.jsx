@@ -14,7 +14,7 @@ const useTaskStore = create(set => ({
     taskCreator : null,
     setTaskCreator: (creator) => set({ taskCreator: creator }),
     fetchTaskCreator: async (id) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/creator/${id}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/creator/${id}`, {
             method: "GET",
             headers: {
                 Accept: "*/*",
@@ -31,7 +31,7 @@ const useTaskStore = create(set => ({
 
     setTasks: (tasks) => set({ tasks: tasks }),
     fetchTasks: async () => {
-        const response = await fetch("http://localhost:8080/projecto4backend/rest/task/all", {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/tasks/all", {
             method: "GET",
             headers: {
                 Accept: "*/*",
@@ -43,7 +43,7 @@ const useTaskStore = create(set => ({
         set({ tasks: data });
     },
     fetchActiveTasks: async () => {
-        const response = await fetch("http://localhost:8080/projecto4backend/rest/task/allActive", {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/tasks/allActive", {
             method: "GET",
             headers: {
                 Accept: "*/*",
@@ -57,7 +57,7 @@ const useTaskStore = create(set => ({
         
     },
     fetchDeletedTasks: async () => {
-        const response = await fetch("http://localhost:8080/projecto4backend/rest/task/allDeleted", {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/tasks/allDeleted", {
             method: "GET",
             headers: {
                 Accept: "*/*",
@@ -69,7 +69,7 @@ const useTaskStore = create(set => ({
         set({ tasks: data });
     },
     onDeleteTask: async (id) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/block/${id}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/block/${id}`, {
             method: "PATCH",
             headers: {
                 Accept: "*/*",
@@ -82,7 +82,7 @@ const useTaskStore = create(set => ({
         }
     },
     onRestoreTask: async (id) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/restore/${id}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/restore/${id}`, {
             method: "PATCH",
             headers: {
                 Accept: "*/*",
@@ -95,7 +95,7 @@ const useTaskStore = create(set => ({
         }
     },
     onAddTask: async (task) => {
-        const response = await fetch("http://localhost:8080/projecto4backend/rest/task/add", {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/tasks/add", {
             method: "POST",
             headers: {
                 Accept: "*/*",
@@ -115,7 +115,7 @@ const useTaskStore = create(set => ({
             status: status
         };
         
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/changeStatus/${id}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/changeStatus/${id}`, {
             method: "PATCH",
             headers: {
                 Accept: "*/*",
@@ -129,7 +129,7 @@ const useTaskStore = create(set => ({
         }
     },
     onFilterByCategory: async (category) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/byCategory/${category}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/byCategory/${category}`, {
             method: "GET",
             headers: {
                 Accept: "*/*",
@@ -141,7 +141,7 @@ const useTaskStore = create(set => ({
         set({ tasks: data });
     },
     onFilterByUser: async (username) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/byUser/${username}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/byUser/${username}`, {
             method: "GET",
             headers: {
                 Accept: "*/*",
@@ -153,7 +153,7 @@ const useTaskStore = create(set => ({
         set({ tasks: data });
     },
     fetchTaskById: async (id) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/${id}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/${id}`, {
             method: "GET",
             headers: {
                 Accept: "*/*",

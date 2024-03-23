@@ -17,7 +17,7 @@ const CategoriesTable = () => {
 const setIsCategoriesOpen = useCategoriesStore(state => state.setCategoriesOpen);
 
 const handleDelete = async (category) => {
-    const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/deleteCategory/${category}`, {
+    const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/deleteCategory/${category}`, {
         method: "DELETE",
         headers: {
             Accept: "*/*",

@@ -19,7 +19,7 @@ function Login() {
 
     async function handleLogin(e){
         e.preventDefault();
-        const response = await fetch('http://localhost:8080/projecto4backend/rest/user/login', {
+        const response = await fetch('http://localhost:8080/projecto4backend/rest/users/login', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

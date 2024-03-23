@@ -33,7 +33,7 @@ const UserProfiles = () => {
 
     async function deleteUser(username) {
 
-        await fetch(`http://localhost:8080/projecto4backend/rest/user/delete/${username}`, {
+        await fetch(`http://localhost:8080/projecto4backend/rest/users/delete/${username}`, {
             method: "DELETE",
             headers: {
                 Accept: "*/*",
@@ -51,7 +51,7 @@ const UserProfiles = () => {
     }
     }
     async function restoreUSer(username){
-       const Response =  await fetch(`http://localhost:8080/projecto4backend/rest/user/restore/${username}`, {
+       const Response =  await fetch(`http://localhost:8080/projecto4backend/rest/users/restore/${username}`, {
             method: "POST",
             headers: {
                 Accept: "*/*",
@@ -95,7 +95,7 @@ const handleRestore = (e) => {
             role: role,
             username: selectedUser.username,
         };
-        const Response = await fetch("http://localhost:8080/projecto4backend/rest/user/update", {
+        const Response = await fetch("http://localhost:8080/projecto4backend/rest/users/update", {
             method: "PUT",
             headers: {
                 Accept: "*/*",

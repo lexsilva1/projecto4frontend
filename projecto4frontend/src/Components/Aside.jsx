@@ -62,7 +62,7 @@ const Aside = ({isOpen}) => {
                 contactNumber: contactNumber,
                 userPhoto: userPhoto
             }; // Fix: Added semicolon to end the user object assignment
-            const response = await fetch('http://localhost:8080/projecto4backend/rest/user/register', {
+            const response = await fetch('http://localhost:8080/projecto4backend/rest/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
