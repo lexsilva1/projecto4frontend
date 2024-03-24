@@ -4,8 +4,8 @@ import { toast, Bounce} from "react-toastify";
 const Warning = (message) => {
     toast.warning(message, {
         position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
+        autoClose: 1500,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,

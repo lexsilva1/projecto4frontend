@@ -37,7 +37,7 @@ const response = await fetch ("http://localhost:8080/projecto4backend/rest/tasks
         console.log(response)
         toast.success('Category created',{
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -52,7 +52,7 @@ const response = await fetch ("http://localhost:8080/projecto4backend/rest/tasks
             
             toast.error(await response.text(),{
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -86,7 +86,7 @@ const response = await fetch ("http://localhost:8080/projecto4backend/rest/tasks
         console.log(response)
         toast.success('Category updated',{
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -100,7 +100,7 @@ const response = await fetch ("http://localhost:8080/projecto4backend/rest/tasks
         console.log(response)
         toast.error(response.statusText,{
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

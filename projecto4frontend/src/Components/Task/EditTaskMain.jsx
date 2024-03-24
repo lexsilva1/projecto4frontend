@@ -72,7 +72,7 @@ useEffect(  () => {
     fetchData();
 
     }, []);
-console.log(id);
+
 
 
  
@@ -119,7 +119,6 @@ const handleSaveTask = async () => {
             endDate: '2199-12-31',
             status: clickedStatus,
         };
-        console.log(task);
         await onUpdateTask(task);
         navigate('/home');
     }    
@@ -267,7 +266,7 @@ const handleSaveTask = async () => {
                             id="categoryEditTask"
                             disabled={taskCreator.username !== username && role === 'developer' ? 'disabled' : ''}
                         >
-                            {...categories.map((category) => (
+                            {categories.map((category) => (
                                 <option value={category.name} key={category.id}>
                                     {category.name}
                                 </option>

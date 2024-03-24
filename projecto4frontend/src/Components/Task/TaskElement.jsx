@@ -3,6 +3,7 @@ import classes from './TaskElement.module.css';
 import darkCross from '../../multimedia/dark-cross-01.png'; // Importing image from the relative path
 import restore from '../../multimedia/restore.png'
 import useTaskStore from '../../stores/TaskStore';
+import useStore from '../../stores/Userstore';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -15,19 +16,22 @@ const TaskElement = ({ task }) => {
   const onRestoreTask = useTaskStore(state => state.onRestoreTask);
   const tasks = useTaskStore(state => state.tasks);
   const setTasks = useTaskStore(state => state.setTasks);
-  const onUpdateStatus = useTaskStore(state => state.onUpdateStatus);
-  const setEditedTaskId = useTaskStore(state => state.setEditedTaskId);
-  const editedTask = useTaskStore(state => state.editedTask);
-  const setEditedTask = useTaskStore(state => state.setEditedTask);
-  const taskCreator = useTaskStore(state => state.taskCreator);
-  const setTaskCreator = useTaskStore(state => state.setTaskCreator);
-  const fetchTaskCreator = useTaskStore(state => state.fetchTaskCreator);
+  const isDeleteSelected = useStore(state => state.isDeleteSelected);
+  const setIsDeleteSelected = useStore(state => state.setIsDeleteSelected);
 
-  const handleDelete = async (id) => {
+
+  const handleDelete = async (id) => { 
+    if(!isDeleteSelected){  
     await onDeleteTask(id);
     setTasks(tasks.filter(task => task.id !== id));
     await fetchActiveTasks();
-  }
+    }else{
+      await onDeleteTask(id);
+      setTasks(tasks.filter(task => task.id !== id));
+      await fetchDeletedTasks();
+    } 
+  };
+
   const handleRestore = async (id) => {
     await onRestoreTask(id);
     setTasks(tasks.filter(task => task.id !== id));

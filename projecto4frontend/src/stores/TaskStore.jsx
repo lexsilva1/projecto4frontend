@@ -104,9 +104,9 @@ const useTaskStore = create(set => ({
             },
             body: JSON.stringify(task),
         });
-        if(response.status === 200){
+        if(response.status === 201){
             console.log(response)
-            successToast(await response.text());
+            successToast('Task created');
         }
     },
     onUpdateStatus: async (id, status) => {
@@ -165,7 +165,7 @@ const useTaskStore = create(set => ({
         return ( data);
     },
     onUpdateTask: async (task) => {
-        const response = await fetch("http://localhost:8080/projecto4backend/rest/task/update", {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/tasks/update", {
             method: "PUT",
             headers: {
                 Accept: "*/*",
@@ -175,11 +175,11 @@ const useTaskStore = create(set => ({
             body: JSON.stringify(task),
         });
         if(response.status === 200){
-            successToast(await response.text());
+            successToast('Task updated');
         }
     },
     onDeleteAllUsersTasks: async (username) => {
-        const response = await fetch(`http://localhost:8080/projecto4backend/rest/task/deleteAll/${username}`, {
+        const response = await fetch(`http://localhost:8080/projecto4backend/rest/tasks/deleteAll/${username}`, {
             method: "DELETE",
             headers: {
                 Accept: "*/*",

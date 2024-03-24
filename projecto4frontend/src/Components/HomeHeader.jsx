@@ -15,15 +15,17 @@ const HomeHeader = ({ handleEditProfileIsOpen,updatedPhoto,updatedName }) => {
 const username = sessionStorage.getItem("username");
 const onFilterByUser = useTaskStore(state => state.onFilterByUser);
 const fetchActiveTasks = useTaskStore(state => state.fetchActiveTasks);
-const isCategoresOpen = useCategoriesStore(state => state.isCategoresOpen);
-const select = useStore(state => state.select);
-const setIsCategoresOpen = useCategoriesStore(state => state.setIsCategoresOpen);
+const categoriesisOpen = useCategoriesStore(state => state.categoriesisOpen);
+const selected = useStore(state => state.selected);
+const setCategoriesOpen = useCategoriesStore(state => state.setCategoriesOpen);
 const setSelected = useStore(state => state.setSelected);
 const [mytasks, setMyTasks] = useState(false);
 const resetState = useStore(state => state.resetState);
 const resetCategoriesState = useCategoriesStore(state => state.resetCategoriesState);
 const isDeleteSelected = useStore(state => state.isDeleteSelected);
 const setIsDeleteSelected = useStore(state => state.setIsDeleteSelected);
+
+
 
 
 
@@ -100,7 +102,9 @@ async function userPicture() {
     .then((data) => setPhoto(data));
 }
  async function handleMyTasks (username) {
-
+categoriesisOpen ? setCategoriesOpen() : null;
+selected ? setSelected() : null;
+isDeleteSelected ? setIsDeleteSelected() : null;
     if (!mytasks) {
         await onFilterByUser(username);
         setMyTasks(!mytasks);
