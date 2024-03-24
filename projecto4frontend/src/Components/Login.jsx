@@ -3,6 +3,9 @@ import logo from '../multimedia/logo_scrum_01.png'
 import Aside from './Aside'; 
 import React, { useState } from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
+import Success from './Toasts/Success';
+import Warning from './Toasts/Warning';
+import Error from './Toasts/Error';
 
 function Login() {
     const navigate = useNavigate();
@@ -28,10 +31,17 @@ function Login() {
             },
             
         });
-        const data = await response.text();
+        if(response.status === 200){
+            const data = await response.text();
+        Success('Welcome to Scrum');
         sessionStorage.setItem('token', data);
         navigate('/home');
+    }else if(response.status === 403){
+        Warning(await response.text());
+    }else if( response.status === 404){
+       Error(await response.text());
     }
+}
 
     return(
         <div className={classes.centercontainer}>
