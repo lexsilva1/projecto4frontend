@@ -72,7 +72,7 @@ const EditMyProfileModal = ({ EditProfileIsOpen, handleEditProfileIsOpen, onUpda
                 password: password,
                 newPassword: newPassword,
             };
-            const response = await fetch('http://localhost:8080/projecto4backend/rest/users/updatePassword', {
+            const response = await fetch('http://localhost:8080/projecto4backend/rest/users/password', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const EditMyProfileModal = ({ EditProfileIsOpen, handleEditProfileIsOpen, onUpda
             contactNumber: contact,
             userPhoto: userPicture,
         };
-        const response = await fetch('http://localhost:8080/projecto4backend/rest/users/update', {
+        const response = await fetch('http://localhost:8080/projecto4backend/rest/users', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

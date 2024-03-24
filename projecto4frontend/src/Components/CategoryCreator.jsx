@@ -22,7 +22,7 @@ async function addCategory () {
     }
 
 
-const response = await fetch ("http://localhost:8080/projecto4backend/rest/tasks/createCategory"
+const response = await fetch ("http://localhost:8080/projecto4backend/rest/tasks/Categories"
 
     , {
         method: "POST",
@@ -71,7 +71,7 @@ async function updateCategory () {
         id: category2id,
     }
 
-const response = await fetch ("http://localhost:8080/projecto4backend/rest/tasks/updateCategory"
+const response = await fetch ("http://localhost:8080/projecto4backend/rest/tasks/Categories"
 
     , {
         method: "PUT",

@@ -20,7 +20,7 @@ categories: [], // the initial state
 actions:
     {
         fetchCategories: async () => {
-            const response = await fetch("http://localhost:8080/projecto4backend/rest/tasks/allCategories", {
+            const response = await fetch("http://localhost:8080/projecto4backend/rest/tasks/Categories", {
                 method: "GET",
                 headers: {
                     Accept: "*/*",

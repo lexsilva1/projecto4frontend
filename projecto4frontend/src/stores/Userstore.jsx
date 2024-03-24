@@ -31,7 +31,7 @@ const useStore = create((set) => ({
     actions:
     {
         fetchDeletedUsers: async () => {
-            const response = await fetch("http://localhost:8080/projecto4backend/rest/users/allDeleted", {
+            const response = await fetch("http://localhost:8080/projecto4backend/rest/users/Deleted", {
                 method: "GET",
                 headers: {
                     Accept: "*/*",
@@ -46,7 +46,7 @@ const useStore = create((set) => ({
             }
         },
         fetchAllUsers: async () => {
-            const response = await fetch("http://localhost:8080/projecto4backend/rest/users/all", {
+            const response = await fetch("http://localhost:8080/projecto4backend/rest/users", {
                 method: "GET",
                 headers: {
                     Accept: "*/*",
@@ -62,7 +62,7 @@ const useStore = create((set) => ({
         },
         
         fetchUsers: async () => {
-        const response = await fetch("http://localhost:8080/projecto4backend/rest/users/allActive", {
+        const response = await fetch("http://localhost:8080/projecto4backend/rest/users/Active", {
             method: "GET",
             headers: {
                 Accept: "*/*",
