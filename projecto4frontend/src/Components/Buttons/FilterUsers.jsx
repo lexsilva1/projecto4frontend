@@ -27,6 +27,7 @@ const FilterUsers = () => {
             <label className={classes.filter} htmlFor="filter">Filter by user:</label>
             <select onChange={(e) => handleChange(e.target.value)}  className={classes.filter} id="userfilter">
                 <option value="">All</option>
+                <option value="deleted">Deleted User</option>
                 {users && users.map(user => <option key={user.username} value={user.username}>{user.name}</option>)}
             </select>
         </div>
